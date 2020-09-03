@@ -27,7 +27,7 @@ class Logger(object):
         self.name = name
         self._file_format = ""
         self._console_format = ""
-        self._log_file = Path(log_path).expanduser()
+        self._log_file = log_path
         self._check_logfile()
         self._level_number = {
             "DEBUG": 0,
@@ -45,6 +45,12 @@ class Logger(object):
         Check if the passed logfile path is present.
         If not present then create it.
         """
+        # If the log_file path is not passed, disable the
+        # logging to file
+        if self._log_file is None:
+            self._disable_file = True
+            return
+
         if not self._log_file.exists():
             if not self._log_file.parent.exists():
                 os.makedirs(self._log_file.parent)
@@ -109,7 +115,6 @@ class Logger(object):
         """
         List all the available logger levels.
         """
-        print("Available logger levels are: ")
         for key in self._level_number:
             print("{} : {}".format(self._level_number[key], key.upper()))
 

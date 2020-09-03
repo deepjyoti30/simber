@@ -1,0 +1,4 @@
+build/*
+dist/*
+simber.egg*
+simber/__pycache__/*
