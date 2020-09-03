@@ -30,6 +30,6 @@ class Default(object):
         """Return a string showing all the attributes
         that self contains"""
         return str({
-            'console_format': self.console_format(),
-            'file_format': self.file_format()
+            'console_format': self.console_format,
+            'file_format': self.file_format
         })
