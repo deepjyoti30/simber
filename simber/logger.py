@@ -51,6 +51,9 @@ class Logger(object):
             self._disable_file = True
             return
 
+        # If it is passed, make it a Path object
+        self._log_file = Path(self._log_file).expanduser()
+
         if not self._log_file.exists():
             if not self._log_file.parent.exists():
                 os.makedirs(self._log_file.parent)
