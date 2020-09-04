@@ -150,6 +150,19 @@ class Logger(object):
         for instance in Logger._instances:
             instance.disable_file = disable_file
 
+    def update_format(self, format, file_format=None):
+        """Update the format of all the instances.
+
+        If the `file_format` is not passed, set the console_format
+        as it.
+        """
+        # TODO: Verify format
+        file_format = format if file_format is None else file_format
+
+        for instance in Logger._instances:
+            instance._console_format = format
+            instance._file_format = file_format
+
     def list_available_levels(self):
         """
         List all the available logger levels.
