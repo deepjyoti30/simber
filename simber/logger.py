@@ -11,6 +11,8 @@ from pathlib import Path
 import datetime
 import os
 
+from simber.configurations import Default
+
 
 class Logger(object):
     """Handle the logging through one class. This will be the
@@ -23,12 +25,19 @@ class Logger(object):
 
     _instances = []
 
-    def __init__(self, name, log_path=None, level="INFO", disable_file=False):
+    def __init__(
+        self,
+        name,
+        format=None,
+        file_format=None,
+        log_path=None,
+        level="INFO",
+        disable_file=False
+    ):
         self.name = name
-        self._file_format = ""
-        self._console_format = ""
         self._log_file = log_path
         self._check_logfile()
+        self._check_format(format, file_format)
         self._level_number = {
             "DEBUG": 0,
             "INFO": 1,
@@ -39,6 +48,33 @@ class Logger(object):
         self.level = self._level_number[level]
         self._disable_file = disable_file
         self._instances.append(self)
+
+    def _check_format(self, format_passed, file_format):
+        """Check the format that needs to be used.
+
+        If the `format` passed is not None, use it.
+        If the `file_format` is not None, use it, else
+        use the `format` for the same.
+        If `format` and `file_format` are not passed,
+        use the default formats.
+        """
+        format_valid = bool(format_passed)
+        file_format_valid = bool(file_format)
+
+        if format_valid:
+            if not file_format_valid:
+                file_format = format_passed
+            else:
+                pass
+        elif not format_valid:
+            format_passed = Default().console_format
+            if not file_format_valid:
+                file_format = Default().file_format
+            else:
+                pass
+
+        self._console_format = format_passed
+        self._file_format = file_format
 
     def _check_logfile(self):
         """
