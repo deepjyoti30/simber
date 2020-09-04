@@ -32,7 +32,8 @@ class Logger(object):
         file_format=None,
         log_path=None,
         level="INFO",
-        disable_file=False
+        disable_file=False,
+        update_all=False
     ):
         self.name = name
         self._log_file = log_path
@@ -48,6 +49,12 @@ class Logger(object):
         self.level = self._level_number[level]
         self._disable_file = disable_file
         self._instances.append(self)
+
+        # Update all instances, if asked to
+        if update_all:
+            self.update_format(self._console_format, self._file_format)
+            self.update_disable_file(self._disable_file)
+            self.update_level(self.level)
 
     def _check_format(self, format_passed, file_format):
         """Check the format that needs to be used.
