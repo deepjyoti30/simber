@@ -25,3 +25,13 @@ def test__check_format():
     logger = Logger("test", file_format="nana")
     assert logger._console_format == "", "Should be ``"
     assert logger._file_format == "nana", "Should be `nana`"
+
+
+def test_update_format():
+    """Test the update_format method"""
+    logger1 = Logger("test1", format="nana")
+    logger2 = Logger("test2", "new_nana")
+
+    logger2.update_format("second_nana")
+    assert logger1._console_format == "second_nana", "Should be second_nana"
+    assert logger2._console_format == "second_nana", "Should be second_nana"
