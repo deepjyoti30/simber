@@ -155,7 +155,7 @@ class Logger(object):
         Update the disable file variable.
         """
         for instance in Logger._instances:
-            instance.disable_file = disable_file
+            instance._disable_file = disable_file
 
     def update_format(self, format, file_format=None):
         """Update the format of all the instances.

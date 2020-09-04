@@ -35,3 +35,25 @@ def test_update_format():
     logger2.update_format("second_nana")
     assert logger1._console_format == "second_nana", "Should be second_nana"
     assert logger2._console_format == "second_nana", "Should be second_nana"
+
+
+def test_update_disable_file():
+    """Test the update_disable_file method"""
+    logger1 = Logger("test1", disable_file=False)
+    logger2 = Logger("test2", disable_file=True)
+
+    logger2.update_disable_file(True)
+
+    assert logger1._disable_file, "Should be true"
+    assert logger2._disable_file, "Should be true"
+
+
+def test_update_level():
+    """Test the update_level method"""
+    logger1 = Logger("test1", level="INFO")
+    logger2 = Logger("test2", level="WARNING")
+
+    logger2.update_level("DEBUG")
+
+    assert logger1.level == logger1._level_number["DEBUG"], "Update level failed"
+    assert logger2.level == logger2._level_number["DEBUG"], "Update level failed"
