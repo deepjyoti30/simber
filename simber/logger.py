@@ -39,13 +39,8 @@ class Logger(object):
         self._log_file = log_path
         self._check_logfile()
         self._check_format(format, file_format)
-        self._level_number = {
-            "DEBUG": 0,
-            "INFO": 1,
-            "WARNING": 2,
-            "ERROR": 3,
-            "CRITICAL": 4,
-        }
+        self._level_number = Default().level_number
+        self._passed_level = level
         self.level = self._level_number[level]
         self._disable_file = disable_file
         self._instances.append(self)
