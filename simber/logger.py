@@ -123,10 +123,14 @@ class Logger(object):
         """
         Make the format of the string that is to be written.
         """
-        self._console_format = Formatter.sub(self._console_format,
-                                             self._passed_level, self.name)
-        self._file_format = Formatter.sub(self._file_format,
-                                          self._passed_level, self.name)
+        console_format = Formatter.sub(self._console_format,
+                                       self._passed_level, self.name)
+        self._console_format = console_format + " {}".format(message)
+
+        if not self._disable_file:
+            file_format = Formatter.sub(self._file_format,
+                                        self._passed_level, self.name)
+            self._file_format = file_format + " {}".format(message)
 
     def update_level(self, level):
         """
