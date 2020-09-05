@@ -108,13 +108,18 @@ class Logger(object):
             f = open(self._log_file, "a")
             f.write(self._file_format)
 
-    def _write(self, message, LEVEL_NUMBER):
+    def _extract_args(self, message, other_str):
+        """Extract the args and append them to the message,
+        seperated by a space"""
+        return message + ' '.join(other_str)
+
+    def _write(self, message, args, LEVEL_NUMBER):
         """
             Write the logs.
             LEVEL_NUMBER is the levelnumber of the level that is calling the
             _write function.
         """
-        self._make_format(message)
+        self._make_format(self._extract_args(message, args))
         self._write_file()
         if LEVEL_NUMBER >= self.level:
             print(self._console_format)
@@ -184,38 +189,38 @@ class Logger(object):
         if LEVEL_NUMBER >= self.level:
             input("Screen hold! Press any key to continue")
 
-    def debug(self, message):
+    def debug(self, message, *args):
         """
         Add the message if the level is debug.
         """
         LEVEL_NUMBER = 0
-        self._write(message, LEVEL_NUMBER)
+        self._write(message, args, LEVEL_NUMBER)
 
-    def info(self, message):
+    def info(self, message, *args):
         """
         Add the message if the level is info or less.
         """
         LEVEL_NUMBER = 1
-        self._write(message, LEVEL_NUMBER)
+        self._write(message, args, LEVEL_NUMBER)
 
-    def warning(self, message):
+    def warning(self, message, *args):
         """
         Add the message if the level is warning or less.
         """
         LEVEL_NUMBER = 2
-        self._write(message, LEVEL_NUMBER)
+        self._write(message, args, LEVEL_NUMBER)
 
-    def error(self, message):
+    def error(self, message, *args):
         """
         Add the message if the level is error or less.
         """
         LEVEL_NUMBER = 3
-        self._write(message, LEVEL_NUMBER)
+        self._write(message, args, LEVEL_NUMBER)
 
-    def critical(self, message):
+    def critical(self, message, *args):
         """
         Add the message if the level is critical or less.
         """
         LEVEL_NUMBER = 4
-        self._write(message, LEVEL_NUMBER)
+        self._write(message, args, LEVEL_NUMBER)
         exit()
