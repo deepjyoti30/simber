@@ -37,19 +37,21 @@ class Logger(object):
     ):
         self.name = name
         self._log_file = log_path
-        self._check_logfile()
-        self._check_format(format, file_format)
         self._level_number = Default().level_number
         self._passed_level = level
         self.level = self._level_number[level]
         self._disable_file = disable_file
-        self._instances.append(self)
+
+        self._check_logfile()
+        self._check_format(format, file_format)
 
         # Update all instances, if asked to
         if update_all:
             self.update_format(self._console_format, self._file_format)
             self.update_disable_file(self._disable_file)
             self.update_level(self.level)
+
+        self._instances.append(self)
 
     def _check_format(self, format_passed, file_format):
         """Check the format that needs to be used.
@@ -111,7 +113,7 @@ class Logger(object):
     def _extract_args(self, message, other_str):
         """Extract the args and append them to the message,
         seperated by a space"""
-        return message + ' '.join(other_str)
+        return message + ' ' + ' '.join(other_str)
 
     def _write(self, message, args, LEVEL_NUMBER):
         """
