@@ -113,7 +113,7 @@ class Logger(object):
     def _extract_args(self, message, other_str):
         """Extract the args and append them to the message,
         seperated by a space"""
-        return message + ' ' + ' '.join(other_str)
+        return "{} {}".format(message, ' '.join(other_str))
 
     def _write(self, message, args, LEVEL_NUMBER):
         """
