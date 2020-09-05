@@ -8,10 +8,10 @@ for all Python apps.
 Copyright (c) 2020 Deepjyoti Barman <deep.barman30@gmail.com>
 """
 from pathlib import Path
-import datetime
 import os
 
 from simber.configurations import Default
+from simber.formatter import Formatter
 
 
 class Logger(object):
@@ -123,14 +123,10 @@ class Logger(object):
         """
         Make the format of the string that is to be written.
         """
-        t = datetime.datetime.now()
-        DATETIME_FORMAT = "{}-{}-{} {}:{}:{}".format(
-            t.year, t.month, t.day, t.hour, t.minute, t.second
-        )
-        self._console_format = "[{}]: {}".format(self.name, message)
-        self._file_format = "[{}]-[{}]: {}\n".format(
-            self.name, DATETIME_FORMAT, message
-        )
+        self._console_format = Formatter.sub(self._console_format,
+                                             self._passed_level, self.name)
+        self._file_format = Formatter.sub(self._file_format,
+                                          self._passed_level, self.name)
 
     def update_level(self, level):
         """

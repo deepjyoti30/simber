@@ -45,13 +45,14 @@ class Formatter(object):
         }
 
     @staticmethod
-    def sub(unformatted_str, level):
+    def sub(unformatted_str, level, name):
         """Format the passed strings with the paramaters
         as possible.
 
         :param unformatted_str: Unformatted String to be substitued
         with.
         :param level: The level logger is currently calling from.
+        :param name: The name of the logger
         :return: The formatted string
         :rtype: str
         """
@@ -66,5 +67,6 @@ class Formatter(object):
             funcname=caller_info['name'],
             lineno=caller_info['line_no'],
             levelname=level_info['levelname'],
-            levelno=level_info['levelno']
+            levelno=level_info['levelno'],
+            logger=name
         )

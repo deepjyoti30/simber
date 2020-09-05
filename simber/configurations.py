@@ -17,8 +17,8 @@ class Default(object):
     the same without an underscore.
     """
     def __init__(self):
-        self._console_format = ""
-        self._file_format = ""
+        self._console_format = "[{levelname}] [{time}] [{filename}]"
+        self._file_format = "[{levelname}] [{time}] [{filename}]"
         self._level_number = {
             "DEBUG": 0,
             "INFO": 1,
