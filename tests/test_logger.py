@@ -8,8 +8,8 @@ def test__check_format():
     logger = Logger("test")
 
     # Check the default
-    assert logger._console_format == "", "Should be ``"
-    assert logger._file_format == "", "Should be ``"
+    assert logger._console_format == "[{levelname}] [{logger}]", "Should be [{levelname}] [{logger}]"
+    assert logger._file_format == "[{levelname}] [{time}] [{filename}]", "Should be [{levelname}] [{time}] [{filename}]"
 
     # Check when just format is passed
     logger = Logger("test", format="nana")
@@ -23,7 +23,7 @@ def test__check_format():
 
     # Check when only file_format is passed
     logger = Logger("test", file_format="nana")
-    assert logger._console_format == "", "Should be ``"
+    assert logger._console_format == "[{levelname}] [{logger}]", "Should be [{levelname}] [{logger}]"
     assert logger._file_format == "nana", "Should be `nana`"
 
 
