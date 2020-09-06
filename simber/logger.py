@@ -172,7 +172,6 @@ class Logger(object):
         If the `file_format` is not passed, set the console_format
         as it.
         """
-        # TODO: Verify format
         file_format = format if file_format is None else file_format
 
         for instance in Logger._instances:
