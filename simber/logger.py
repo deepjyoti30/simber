@@ -49,7 +49,7 @@ class Logger(object):
         if update_all:
             self.update_format(self._console_format, self._file_format)
             self.update_disable_file(self._disable_file)
-            self.update_level(self.level)
+            self.update_level(self._passed_level)
 
         self._instances.append(self)
 
@@ -100,15 +100,15 @@ class Logger(object):
             f = open(self._log_file, "w")
             f.close()
 
-    def _write_file(self):
+    def _write_file(self, output_str):
         """Write to the file regardless of the LEVEL_NUMBER."""
-        if self._disable_file:
+        if self._disable_file or output_str is None:
             return
 
         with open(self._log_file, "a") as f:
             # The file log is to be written to the _log_file file
             f = open(self._log_file, "a")
-            f.write(self._file_format)
+            f.write(output_str)
 
     def _extract_args(self, message, other_str):
         """Extract the args and append them to the message,
@@ -121,26 +121,30 @@ class Logger(object):
             LEVEL_NUMBER is the levelnumber of the level that is calling the
             _write function.
         """
-        self._make_format(self._extract_args(message, args))
-        self._write_file()
+        console_out, file_out = self._make_format(
+                                self._extract_args(message, args),
+                                LEVEL_NUMBER)
+        self._write_file(file_out)
         if LEVEL_NUMBER >= self.level:
-            print(self._console_format)
+            print(console_out)
 
-    def _make_format(self, message):
+    def _make_format(self, message, level):
         """
         Make the format of the string that is to be written.
         """
         console_format = Formatter.sub(self._console_format,
-                                       self._passed_level, self.name)
-        self._console_format = console_format + " {}".format(message)
+                                       level, self.name)
+        console_format += " {}".format(message)
 
         if self._disable_file:
-            return
+            return console_format, None
 
         # If file is not disabled, update the string.
         file_format = Formatter.sub(self._file_format,
-                                    self._passed_level, self.name)
-        self._file_format = file_format + " {}".format(message)
+                                    level, self.name)
+        file_format += " {}".format(message)
+
+        return console_format, file_format
 
     def update_level(self, level):
         """

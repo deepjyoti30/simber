@@ -32,16 +32,17 @@ class Formatter(object):
             'line_no': last_to_last_frame.f_back.f_lineno
         }
 
-    def _get_level(self, level: str):
+    def _get_level(self, level_no: int):
         """Get the level info from the passed level"""
         level_info = Default().level_number
 
-        if level not in level_info:
-            raise Exception("{}: Not a valid level".format(level))
+        if level_no not in list(level_info.values()):
+            raise Exception("{}: Not a valid level".format(level_no))
 
         return {
-            'levelno': level_info.get(level),
-            'levelname': level
+            'levelno': level_no,
+            'levelname': [key for (key, value) in level_info.items()
+                          if value == level_no][0]
         }
 
     @staticmethod
