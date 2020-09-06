@@ -29,25 +29,21 @@ class Logger(object):
     def __init__(
         self,
         name,
-        format=None,
-        file_format=None,
-        log_path=None,
-        level="INFO",
-        disable_file=False,
-        update_all=False
+        **kwargs
     ):
         self.name = name
-        self._log_file = log_path
+        self._log_file = kwargs.get("log_path", None)
         self._level_number = Default().level_number
-        self._passed_level = level
-        self.level = self._level_number[level]
-        self._disable_file = disable_file
+        self._passed_level = kwargs.get("level", "INFO")
+        self.level = self._level_number[self._passed_level]
+        self._disable_file = kwargs.get("disable_file", False)
 
         self._check_logfile()
-        self._check_format(format, file_format)
+        self._check_format(kwargs.get("format", None),
+                           kwargs.get("file_format", None))
 
         # Update all instances, if asked to
-        if update_all:
+        if kwargs.get("update_all", False):
             self.update_format(self._console_format, self._file_format)
             self.update_disable_file(self._disable_file)
             self.update_level(self._passed_level)
