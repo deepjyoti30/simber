@@ -22,6 +22,33 @@ class Logger(object):
     This class will have various methods but the most important
     methods are the ones that will allow the user to log at
     various levels.
+
+    Logger will accept various paramaters but in order to keep
+    the __init__ method simple, this params are accepted through a
+    kwargs paramater. All the paramaters are optional.
+
+    Available options:
+
+    format:             Format of the console output string.
+    file_format:        Format of the file output string. If `format`
+                        is passed and this is not passed, then `format`
+                        is copied to this.
+    log_path:           Path to the log file or directory. If it is a dir
+                        then the log file is created in the directory. If
+                        it is a file, logger will start appending to the file.
+                        If not passed, writing to file will be disabled.
+    level:              Minimum level that the logger should verbose in. It is
+                        a string that is by default set to `INFO`. All accepted
+                        values are `DEBUG, INFO, WARNING, ERROR, CRITICAL`.
+                        This list can also be accessed by the
+                        `list_available_levels` method.
+    disable_file:       If to disable writing to the file. This is
+                        set to False if the log_path is passed. If log_path is
+                        invalid or None, this is set to True.
+    update_all:         If to update all the instances initialized before init
+                        self logger. If passed True, all the logger instances
+                        previsouly init will be updated with the `format`,
+                        `disable_file` and `level` attribute.
     """
 
     _instances = []
