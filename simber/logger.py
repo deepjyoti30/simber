@@ -42,6 +42,9 @@ class Logger(object):
                         values are `DEBUG, INFO, WARNING, ERROR, CRITICAL`.
                         This list can also be accessed by the
                         `list_available_levels` method.
+    file_level:         Minimum level that the logger should verbose file
+                        outputs in. By default this is set to the minimum
+                        level possible.
     disable_file:       If to disable writing to the file. This is
                         set to False if the log_path is passed. If log_path is
                         invalid or None, this is set to True.
@@ -62,7 +65,9 @@ class Logger(object):
         self._log_file = kwargs.get("log_path", None)
         self._level_number = Default().level_number
         self._passed_level = kwargs.get("level", "INFO")
+        self._passed_file_level = kwargs.get("file_level", "DEBUG")
         self.level = self._level_number[self._passed_level]
+        self._file_level = self._level_number[self._passed_file_level]
         self._disable_file = kwargs.get("disable_file", False)
 
         self._check_logfile()
@@ -150,9 +155,14 @@ class Logger(object):
         console_out, file_out = self._make_format(
                                 self._extract_args(message, args),
                                 LEVEL_NUMBER, caller_frame)
-        self._write_file(file_out)
+
+        # Console output
         if LEVEL_NUMBER >= self.level:
             print(console_out)
+
+        # File output
+        if LEVEL_NUMBER >= self._file_level:
+            self._write_file(file_out)
 
     def _make_format(self, message, level, frame):
         """
