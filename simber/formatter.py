@@ -3,7 +3,6 @@ the format of the strings that are printed.
 """
 
 from datetime import datetime
-from sys import _getframe
 
 from simber.configurations import Default
 
@@ -23,13 +22,12 @@ class Formatter(object):
         """Get the time, based on the string passed."""
         return datetime.now().strftime(strformat)
 
-    def _get_caller_details(self):
+    def _get_caller_details(self, last_to_last_frame):
         """Get the name of the file that called the logger."""
-        last_to_last_frame = _getframe().f_back.f_back
         return {
             'name': last_to_last_frame.f_code.co_name,
             'filename': last_to_last_frame.f_code.co_filename,
-            'line_no': last_to_last_frame.f_back.f_lineno
+            'line_no': last_to_last_frame.f_lineno
         }
 
     def _get_level(self, level_no: int):
@@ -46,7 +44,7 @@ class Formatter(object):
         }
 
     @staticmethod
-    def sub(unformatted_str, level, name):
+    def sub(unformatted_str, level, name, frame):
         """Format the passed strings with the paramaters
         as possible.
 
@@ -59,7 +57,7 @@ class Formatter(object):
         """
         formatter = Formatter()
         current_time = formatter._get_time()
-        caller_info = formatter._get_caller_details()
+        caller_info = formatter._get_caller_details(frame)
         level_info = formatter._get_level(level)
 
         return unformatted_str.format(

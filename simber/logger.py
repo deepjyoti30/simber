@@ -9,6 +9,7 @@ Copyright (c) 2020 Deepjyoti Barman <deep.barman30@gmail.com>
 """
 from pathlib import Path
 import os
+from sys import _getframe
 
 from simber.configurations import Default
 from simber.formatter import Formatter
@@ -121,19 +122,21 @@ class Logger(object):
             LEVEL_NUMBER is the levelnumber of the level that is calling the
             _write function.
         """
+        # Get the frame of the caller
+        caller_frame = _getframe().f_back.f_back
         console_out, file_out = self._make_format(
                                 self._extract_args(message, args),
-                                LEVEL_NUMBER)
+                                LEVEL_NUMBER, caller_frame)
         self._write_file(file_out)
         if LEVEL_NUMBER >= self.level:
             print(console_out)
 
-    def _make_format(self, message, level):
+    def _make_format(self, message, level, frame):
         """
         Make the format of the string that is to be written.
         """
         console_format = Formatter.sub(self._console_format,
-                                       level, self.name)
+                                       level, self.name, frame)
         console_format += " {}".format(message)
 
         if self._disable_file:
