@@ -62,7 +62,7 @@ class Logger(object):
         **kwargs
     ):
         self.name = name
-        self._log_file = kwargs.get("log_path", None)
+        self._log_file = self._check_logfile(kwargs.get("log_path", None))
         self._level_number = Default().level_number
         self._passed_level = kwargs.get("level", "INFO")
         self._passed_file_level = kwargs.get("file_level", "DEBUG")
@@ -70,7 +70,6 @@ class Logger(object):
         self._file_level = self._level_number[self._passed_file_level]
         self._disable_file = kwargs.get("disable_file", False)
 
-        self._check_logfile()
         self._check_format(kwargs.get("format", None),
                            kwargs.get("file_format", None))
 
@@ -109,25 +108,35 @@ class Logger(object):
         self._console_format = format_passed
         self._file_format = file_format
 
-    def _check_logfile(self):
+    def _check_logfile(self, log_path):
         """
         Check if the passed logfile path is present.
         If not present then create it.
         """
         # If the log_file path is not passed, disable the
         # logging to file
-        if self._log_file is None:
+        if log_path is None:
             self._disable_file = True
-            return
+            return log_path
 
         # If it is passed, make it a Path object
-        self._log_file = Path(self._log_file).expanduser()
+        log_path = Path(log_path).expanduser()
 
-        if not self._log_file.exists():
-            if not self._log_file.parent.exists():
-                os.makedirs(self._log_file.parent)
-            f = open(self._log_file, "w")
+        # Check if the file is a dir
+        # If it is, then append the file name to the log
+        # path and continue
+        if log_path.is_dir():
+            log_path = log_path.joinpath(Default().log_file_name)
+
+        if not log_path.exists():
+            # Below check is important if the passed log path
+            # is a file name inside some directory
+            if not log_path.parent.exists():
+                os.makedirs(log_path.parent)
+            f = open(log_path, "w")
             f.close()
+
+        return str(log_path)
 
     def _write_file(self, output_str):
         """Write to the file regardless of the LEVEL_NUMBER."""

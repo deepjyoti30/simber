@@ -25,7 +25,8 @@ class Default(object):
             "WARNING": 2,
             "ERROR": 3,
             "CRITICAL": 4,
-        }
+        },
+        self._log_file_name = "log"
 
     @property
     def console_format(self) -> str:
@@ -39,11 +40,16 @@ class Default(object):
     def level_number(self) -> Dict:
         return self._level_number
 
+    @property
+    def log_file_name(self) -> str:
+        return self._log_file_name
+
     def __repr__(self) -> str:
         """Return a string showing all the attributes
         that self contains"""
         return str({
             'console_format': self.console_format,
             'file_format': self.file_format,
-            'level_number': self.level_number
+            'level_number': self.level_number,
+            'log_file_name': self.log_file_name
         })
