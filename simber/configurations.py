@@ -19,14 +19,14 @@ class Default(object):
     def __init__(self):
         self._console_format = "[{levelname}] [{logger}]"
         self._file_format = "[{levelname}] [{time}] [{filename}]"
+        self._log_file_name = "log",
         self._level_number = {
             "DEBUG": 0,
             "INFO": 1,
             "WARNING": 2,
             "ERROR": 3,
             "CRITICAL": 4,
-        },
-        self._log_file_name = "log"
+        }
 
     @property
     def console_format(self) -> str:
