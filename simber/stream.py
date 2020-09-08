@@ -96,6 +96,10 @@ class OutputStream(object):
     def disabled(self, new_value: bool):
         self._disabled = new_value
 
+    @property
+    def stream_name(self):
+        return self.stream.name
+
     def write(self, message, calling_level, frame, logger_name):
         """Write the message to the stream by making sure
         the calling level is above or equal to the level
