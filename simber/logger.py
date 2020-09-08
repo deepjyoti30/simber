@@ -187,6 +187,18 @@ class Logger(object):
                 self.name
             )
 
+    def _disable_file_streams(self):
+        """Disable the file streams.
+
+        We will check if the streams are files or standard,
+        based on that, we can disable the streams accordingly.
+        """
+        valid_names = ['<stdout>', '<stderr>']
+
+        for stream in self._streams:
+            if stream.stream_name not in valid_names:
+                stream.disabled = self._disable_file
+
     def update_level(self, level):
         """
         Update all the instances of the class with the passed
@@ -207,6 +219,7 @@ class Logger(object):
         """
         for instance in Logger._instances:
             instance._disable_file = disable_file
+            instance._disable_file_streams()
 
     def update_format(self, format):
         """Update the format of all the instances.
