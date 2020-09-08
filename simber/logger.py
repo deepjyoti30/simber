@@ -79,7 +79,7 @@ class Logger(object):
 
         # Update all instances, if asked to
         if kwargs.get("update_all", False):
-            self.update_format(self._console_format, self._file_format)
+            self.update_format(self._console_format)
             self.update_disable_file(self._disable_file)
             self.update_level(self._passed_level)
 
@@ -213,7 +213,7 @@ class Logger(object):
         """Update the format of all the instances.
         """
         for instance in Logger._instances:
-            for stream in instance:
+            for stream in instance._streams:
                 stream.update_format(format)
 
     def list_available_levels(self):
