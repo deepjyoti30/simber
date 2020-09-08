@@ -101,6 +101,11 @@ class OutputStream(object):
     def stream_name(self):
         return self.stream.name
 
+    def __eq__(self, value):
+        if isinstance(value, OutputStream):
+            return self.stream_name == value.stream_name
+        return False
+
     def write(self, message, calling_level, frame, logger_name):
         """Write the message to the stream by making sure
         the calling level is above or equal to the level
