@@ -17,6 +17,7 @@ class OutputStream(object):
     stream:         The stream itself. It can be an TextIOWrapper
                     object that will have a write method which will
                     be used to write to it.
+    disabled:       If the stream is disabled or not.
     """
     def __init__(
         self,
