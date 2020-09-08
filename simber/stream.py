@@ -70,12 +70,20 @@ class OutputStream(object):
 
         return _format + '\n'
 
-    def update_level(self, new_level):
-        """Allow updating the level from other modules"""
+    @property
+    def level(self):
+        return self._level
+
+    @level.setter
+    def level(self, new_level):
         self._level = new_level
 
-    def update_format(self, new_format):
-        """Allow updating the format from other modules"""
+    @property
+    def format(self):
+        return self._format
+
+    @format.setter
+    def format(self, new_format):
         self._format = new_format
 
     def write(self, message, calling_level, frame, logger_name):

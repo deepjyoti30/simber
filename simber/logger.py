@@ -199,7 +199,7 @@ class Logger(object):
 
         for instance in Logger._instances:
             for stream in instance._streams:
-                stream.update_level(self._level_number[level])
+                stream.level = self._level_number[level]
 
     def update_disable_file(self, disable_file):
         """
@@ -213,7 +213,7 @@ class Logger(object):
         """
         for instance in Logger._instances:
             for stream in instance._streams:
-                stream.update_format(format)
+                stream.format = format
 
     def list_available_levels(self):
         """
