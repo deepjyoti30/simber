@@ -73,6 +73,8 @@ class Logger(object):
         self._check_format(kwargs.get("format", None),
                            kwargs.get("file_format", None))
 
+        self._streams = []
+
         # Update all instances, if asked to
         if kwargs.get("update_all", False):
             self.update_format(self._console_format, self._file_format)
@@ -138,59 +140,28 @@ class Logger(object):
 
         return str(log_path)
 
-    def _write_file(self, output_str):
-        """Write to the file regardless of the LEVEL_NUMBER."""
-        if self._disable_file or output_str is None:
-            return
-
-        with open(self._log_file, "a") as f:
-            # The file log is to be written to the _log_file file
-            f = open(self._log_file, "a")
-            f.write(output_str)
-
     def _extract_args(self, message, other_str):
         """Extract the args and append them to the message,
         seperated by a space"""
         return "{} {}".format(message, ' '.join(other_str))
 
-    def _write(self, message, args, LEVEL_NUMBER):
+    def _write(self, message, args, level):
         """
             Write the logs.
-            LEVEL_NUMBER is the levelnumber of the level that is calling the
+            level is the levelnumber of the level that is calling the
             _write function.
         """
         # Get the frame of the caller
         caller_frame = _getframe().f_back.f_back
         message = self._extract_args(message, args)
-        console_out, file_out = self._make_format(
-                                message,
-                                LEVEL_NUMBER, caller_frame)
 
-        # Console output
-        if LEVEL_NUMBER >= self.level:
-            print(console_out)
-
-        # File output
-        if LEVEL_NUMBER >= self._file_level:
-            self._write_file(file_out)
-
-    def _make_format(self, message, level, frame):
-        """
-        Make the format of the string that is to be written.
-        """
-        console_format = Formatter.sub(self._console_format,
-                                       level, self.name, frame)
-        console_format += " {}".format(message)
-
-        if self._disable_file:
-            return console_format, None
-
-        # If file is not disabled, update the string.
-        file_format = Formatter.sub(self._file_format,
-                                    level, self.name)
-        file_format += " {}".format(message)
-
-        return console_format, file_format
+        for stream in self._streams:
+            stream.write(
+                message,
+                level,
+                caller_frame,
+                self.name
+            )
 
     def update_level(self, level):
         """
