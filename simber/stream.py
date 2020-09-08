@@ -109,6 +109,9 @@ class OutputStream(object):
     def __hash__(self):
         return hash(self.stream_name)
 
+    def __repr__(self):
+        return self.stream_name
+
     def write(self, message, calling_level, frame, logger_name):
         """Write the message to the stream by making sure
         the calling level is above or equal to the level
