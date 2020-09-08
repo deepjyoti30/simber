@@ -98,14 +98,21 @@ class Logger(object):
             OutputStream(stdout, self._passed_level, self._console_format)
         )
 
-        # Initialize the file stream if it is not disabeld
-        if not self._disable_file:
-            self._streams.add(
-                OutputStream(
-                    open(self._log_file, "a"),
-                    self._passed_file_level,
-                    self._file_format
-                ))
+        # If log_file is invalid, skip creating the file
+        # stream.
+        if self._log_file is None:
+            return
+
+        # Initialize the file stream
+        # Even if the disable_file flag is passed, add this stream
+        # because file can be enabled later.
+        self._streams.add(
+            OutputStream(
+                open(self._log_file, "a"),
+                self._passed_file_level,
+                self._file_format,
+                self._disable_file
+            ))
 
     def _check_format(self, format_passed, file_format):
         """Check the format that needs to be used.
@@ -192,6 +199,9 @@ class Logger(object):
 
         We will check if the streams are files or standard,
         based on that, we can disable the streams accordingly.
+
+        This won't have any effect if the log_file path was not
+        passed during init.
         """
         valid_names = ['<stdout>', '<stderr>']
 
