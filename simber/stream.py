@@ -4,6 +4,7 @@ from _io import TextIOWrapper
 
 from simber.configurations import Default
 from simber.exceptions import InvalidLevel, InvalidStream
+from simber.formatter import Formatter
 
 
 class OutputStream(object):
@@ -58,3 +59,25 @@ class OutputStream(object):
             raise InvalidStream(type(passed_stream))
 
         return passed_stream
+
+    def _make_format(self, message, level, frame, name):
+        """
+        Make the format of the string that is to be written.
+        """
+        _format = Formatter.sub(self._format,
+                                level, name, frame)
+        _format += " {}".format(message)
+
+        return _format + '\n'
+
+    def write(self, message, calling_level, frame, logger_name):
+        """Write the message to the stream by making sure
+        the calling level is above or equal to the level
+        """
+        if calling_level < self._level:
+            return False
+
+        self.stream.write(self._make_format(
+            message, calling_level, frame, logger_name
+        ))
+        return True

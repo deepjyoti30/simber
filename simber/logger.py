@@ -161,8 +161,9 @@ class Logger(object):
         """
         # Get the frame of the caller
         caller_frame = _getframe().f_back.f_back
+        message = self._extract_args(message, args)
         console_out, file_out = self._make_format(
-                                self._extract_args(message, args),
+                                message,
                                 LEVEL_NUMBER, caller_frame)
 
         # Console output
