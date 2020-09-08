@@ -13,6 +13,7 @@ from sys import _getframe, stdout
 
 from simber.configurations import Default
 from simber.stream import OutputStream
+from simber.exceptions import InvalidLevel
 
 
 class Logger(object):
@@ -200,32 +201,26 @@ class Logger(object):
 
     def update_level(self, level):
         """
-        Update all the instances of the class with the passed
-        level.
+        Update all the streams with the passed level.
         """
         # First check if the passed level is present in the supported ones
         if level not in self._level_number:
-            print("Can't update logger level to invalid value")
-            return
+            raise InvalidLevel(level)
 
-        for instance in Logger._instances:
-            for stream in instance._streams:
-                stream.level = self._level_number[level]
+        for stream in self._streams:
+            stream.level = self._level_number[level]
 
     def update_disable_file(self, disable_file):
         """
         Update the disable file variable.
         """
-        for instance in Logger._instances:
-            instance._disable_file = disable_file
-            instance._disable_file_streams()
+        self._disable_file_streams()
 
     def update_format(self, format):
         """Update the format of all the instances.
         """
-        for instance in Logger._instances:
-            for stream in instance._streams:
-                stream.format = format
+        for stream in self._streams:
+            stream.format = format
 
     def list_available_levels(self):
         """
