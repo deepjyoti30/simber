@@ -224,6 +224,7 @@ class Logger(object):
         """
         Update the disable file variable.
         """
+        self._disable_file = disable_file
         self._disable_file_streams()
 
     def update_format(self, format):
