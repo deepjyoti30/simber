@@ -9,10 +9,11 @@ Copyright (c) 2020 Deepjyoti Barman <deep.barman30@gmail.com>
 """
 from pathlib import Path
 import os
-from sys import _getframe
+from sys import _getframe, stdout
 
 from simber.configurations import Default
 from simber.formatter import Formatter
+from simber.stream import OutputStream
 
 
 class Logger(object):
@@ -62,18 +63,19 @@ class Logger(object):
         **kwargs
     ):
         self.name = name
-        self._log_file = self._check_logfile(kwargs.get("log_path", None))
         self._level_number = Default().level_number
         self._passed_level = kwargs.get("level", "INFO")
         self._passed_file_level = kwargs.get("file_level", "DEBUG")
         self.level = self._level_number[self._passed_level]
         self._file_level = self._level_number[self._passed_file_level]
         self._disable_file = kwargs.get("disable_file", False)
+        self._log_file = self._check_logfile(kwargs.get("log_path", None))
 
         self._check_format(kwargs.get("format", None),
                            kwargs.get("file_format", None))
 
         self._streams = []
+        self._init_default_streams()
 
         # Update all instances, if asked to
         if kwargs.get("update_all", False):
@@ -82,6 +84,29 @@ class Logger(object):
             self.update_level(self._passed_level)
 
         self._instances.append(self)
+
+    def _init_default_streams(self):
+        """Initialize the default streams
+
+        Logger class will by default, initialize two streams.
+        Those are:
+
+        stdout - Required
+        file_stream - If disabled, this will be skipped
+        """
+        # Initialize the default stdout stream
+        self._streams.append(
+            OutputStream(stdout, self.level, self._console_format)
+        )
+
+        # Initialize the file stream if it is not disabeld
+        if not self._disable_file:
+            self._streams.append(
+                OutputStream(
+                    open(self._log_file, "a"),
+                    self._file_level,
+                    self._file_format
+                ))
 
     def _check_format(self, format_passed, file_format):
         """Check the format that needs to be used.
