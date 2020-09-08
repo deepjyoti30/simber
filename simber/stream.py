@@ -24,7 +24,7 @@ class OutputStream(object):
         format: str = None
     ):
         self._passed_level = None
-        self.stream = stream
+        self.stream = self._extract_stream(stream)
         self._level = self._extract_level(level)
         self._format = Default().file_format if format is None else format
 
@@ -47,3 +47,14 @@ class OutputStream(object):
 
         self._passed_level = passed_level
         return level_map[passed_level]
+
+    def _extract_stream(self, passed_stream: TextIOWrapper):
+        """Extract the passed stream.
+
+        If the passed stream is not a valid one, raise an exception,
+        else, just return it.
+        """
+        if type(passed_stream) != TextIOWrapper:
+            raise
+
+        return passed_stream

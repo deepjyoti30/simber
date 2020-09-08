@@ -17,11 +17,33 @@ class InvalidLevel(Exception):
     def _build_message(self, level):
         """Build a message to show the user"""
         message = "{level}: is an invalid level."\
-                  " Try one of these: {all_levels}"
+                  " Expected one of these: {all_levels}"
         return message.format(
             level=level,
             all_levels=list(Default().level_number.keys())
         )
+
+    def __str__(self):
+        return self.message
+
+
+class InvalidStream(Exception):
+    """Exception for invalid stream
+
+    If the passed stream is not valid, i:e not
+    of type TextIOWrapper, than raise this exception.
+    """
+    def __init__(self, passed_type):
+        super().__init__()
+
+        self.message = self._build_message(passed_type)
+
+    def _build_message(self, passed_type):
+        """Build a message to show the user when this exception
+        arises."""
+        message = "Expected TextIOWrapper, got {}".format(passed_type)
+
+        return message
 
     def __str__(self):
         return self.message
