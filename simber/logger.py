@@ -55,6 +55,7 @@ class Logger(object):
     """
 
     _instances = []
+    _streams = set()
 
     def __init__(
         self,
@@ -72,8 +73,6 @@ class Logger(object):
 
         self._check_format(kwargs.get("format", None),
                            kwargs.get("file_format", None))
-
-        self._streams = []
         self._init_default_streams()
 
         # Update all instances, if asked to
@@ -94,13 +93,13 @@ class Logger(object):
         file_stream - If disabled, this will be skipped
         """
         # Initialize the default stdout stream
-        self._streams.append(
+        self._streams.add(
             OutputStream(stdout, self._passed_level, self._console_format)
         )
 
         # Initialize the file stream if it is not disabeld
         if not self._disable_file:
-            self._streams.append(
+            self._streams.add(
                 OutputStream(
                     open(self._log_file, "a"),
                     self._passed_file_level,
