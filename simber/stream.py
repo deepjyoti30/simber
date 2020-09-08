@@ -3,7 +3,7 @@
 from _io import TextIOWrapper
 
 from simber.configurations import Default
-from simber.exceptions import InvalidLevel
+from simber.exceptions import InvalidLevel, InvalidStream
 
 
 class OutputStream(object):
@@ -55,6 +55,6 @@ class OutputStream(object):
         else, just return it.
         """
         if type(passed_stream) != TextIOWrapper:
-            raise
+            raise InvalidStream(type(passed_stream))
 
         return passed_stream
