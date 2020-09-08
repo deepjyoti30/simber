@@ -70,6 +70,14 @@ class OutputStream(object):
 
         return _format + '\n'
 
+    def update_level(self, new_level):
+        """Allow updating the level from other modules"""
+        self._level = new_level
+
+    def update_format(self, new_format):
+        """Allow updating the format from other modules"""
+        self._format = new_format
+
     def write(self, message, calling_level, frame, logger_name):
         """Write the message to the stream by making sure
         the calling level is above or equal to the level

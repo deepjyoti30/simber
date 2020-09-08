@@ -96,7 +96,7 @@ class Logger(object):
         """
         # Initialize the default stdout stream
         self._streams.append(
-            OutputStream(stdout, self.level, self._console_format)
+            OutputStream(stdout, self._passed_level, self._console_format)
         )
 
         # Initialize the file stream if it is not disabeld
@@ -104,7 +104,7 @@ class Logger(object):
             self._streams.append(
                 OutputStream(
                     open(self._log_file, "a"),
-                    self._file_level,
+                    self._passed_file_level,
                     self._file_format
                 ))
 
@@ -199,7 +199,8 @@ class Logger(object):
             return
 
         for instance in Logger._instances:
-            instance.level = self._level_number[level]
+            for stream in instance._streams:
+                stream.update_level(self._level_number[level])
 
     def update_disable_file(self, disable_file):
         """
@@ -208,17 +209,12 @@ class Logger(object):
         for instance in Logger._instances:
             instance._disable_file = disable_file
 
-    def update_format(self, format, file_format=None):
+    def update_format(self, format):
         """Update the format of all the instances.
-
-        If the `file_format` is not passed, set the console_format
-        as it.
         """
-        file_format = format if file_format is None else file_format
-
         for instance in Logger._instances:
-            instance._console_format = format
-            instance._file_format = file_format
+            for stream in instance:
+                stream.update_format(format)
 
     def list_available_levels(self):
         """
