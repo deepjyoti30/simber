@@ -22,12 +22,14 @@ class OutputStream(object):
         self,
         stream: TextIOWrapper,
         level: str = None,
-        format: str = None
+        format: str = None,
+        disabled: bool = False
     ):
         self._passed_level = None
         self.stream = self._extract_stream(stream)
         self._level = self._extract_level(level)
         self._format = Default().file_format if format is None else format
+        self._disabled = disabled
 
     def _extract_level(self, passed_level: str):
         """Extract the passed level.
@@ -71,26 +73,34 @@ class OutputStream(object):
         return _format + '\n'
 
     @property
-    def level(self):
+    def level(self) -> int:
         return self._level
 
     @level.setter
-    def level(self, new_level):
+    def level(self, new_level: int):
         self._level = new_level
 
     @property
-    def format(self):
+    def format(self) -> str:
         return self._format
 
     @format.setter
-    def format(self, new_format):
+    def format(self, new_format: str):
         self._format = new_format
+
+    @property
+    def disabled(self) -> bool:
+        return self._disabled
+
+    @disabled.setter
+    def disabled(self, new_value: bool):
+        self._disabled = new_value
 
     def write(self, message, calling_level, frame, logger_name):
         """Write the message to the stream by making sure
         the calling level is above or equal to the level
         """
-        if calling_level < self._level:
+        if calling_level < self._level or self._disabled:
             return False
 
         self.stream.write(self._make_format(
