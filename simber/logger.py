@@ -12,7 +12,6 @@ import os
 from sys import _getframe, stdout
 
 from simber.configurations import Default
-from simber.formatter import Formatter
 from simber.stream import OutputStream
 
 
