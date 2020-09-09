@@ -13,7 +13,7 @@ from sys import _getframe, stdout
 
 from simber.configurations import Default
 from simber.stream import OutputStream
-from simber.exceptions import InvalidLevel
+from simber.exceptions import InvalidLevel, InvalidStream
 
 
 class Logger(object):
@@ -232,6 +232,15 @@ class Logger(object):
         """
         for stream in self._streams:
             stream.format = format
+
+    def add_stream(self, stream_to_be_added: OutputStream):
+        """Add the passed stream to the _streams class so
+        that it can be used to write to that as well.
+        """
+        if isinstance(stream_to_be_added, OutputStream):
+            raise InvalidStream(type(stream_to_be_added))
+
+        self._streams.add(stream_to_be_added)
 
     def list_available_levels(self):
         """
