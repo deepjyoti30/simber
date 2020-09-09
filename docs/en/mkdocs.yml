@@ -1,3 +1,10 @@
 site_name: Simber
+site_description: A simple, minimal and powerful logger for Python
 theme:
   name: material
+  icon:
+    repo: fontawesome/brands/github-alt
+  language: en
+repo_name: deepjyoti30/simber
+repo_url: https://github.com/deepjyoti30/simber
+edit_uri: ''
