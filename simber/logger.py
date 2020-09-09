@@ -203,7 +203,7 @@ class Logger(object):
         This won't have any effect if the log_file path was not
         passed during init.
         """
-        valid_names = ['<stdout>', '<stderr>']
+        valid_names = Default().valid_stdout_names
 
         for stream in self._streams:
             if stream.stream_name not in valid_names:

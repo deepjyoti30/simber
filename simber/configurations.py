@@ -1,7 +1,7 @@
 """File to handle the default configurations
 of the logger."""
 
-from typing import Dict
+from typing import Dict, List
 
 
 class Default(object):
@@ -19,7 +19,8 @@ class Default(object):
     def __init__(self):
         self._console_format = "[{levelname}] [{logger}]"
         self._file_format = "[{levelname}] [{time}] [{filename}]"
-        self._log_file_name = "log",
+        self._log_file_name = "log"
+        self._valid_stdout_names = ['<stdout>', '<stderr>']
         self._level_number = {
             "DEBUG": 0,
             "INFO": 1,
@@ -44,6 +45,10 @@ class Default(object):
     def log_file_name(self) -> str:
         return self._log_file_name
 
+    @property
+    def valid_stdout_names(self) -> List:
+        return self._valid_stdout_names
+
     def __repr__(self) -> str:
         """Return a string showing all the attributes
         that self contains"""
@@ -51,5 +56,6 @@ class Default(object):
             'console_format': self.console_format,
             'file_format': self.file_format,
             'level_number': self.level_number,
-            'log_file_name': self.log_file_name
+            'log_file_name': self.log_file_name,
+            'valid_stdout_names': self.valid_stdout_names
         })
