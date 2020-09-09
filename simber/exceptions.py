@@ -41,7 +41,8 @@ class InvalidStream(Exception):
     def _build_message(self, passed_type):
         """Build a message to show the user when this exception
         arises."""
-        message = "Expected <TextIOWrapper>, got {}".format(passed_type)
+        message = "Expected <class 'TextIOWrapper'>, got {}".format(
+            passed_type)
 
         return message
 
@@ -61,7 +62,7 @@ class InvalidOutputStream(Exception):
         self.message = self._build_message(passed_type)
 
     def _build_message(self, passed_type):
-        return "Expect <OutputStream>, got {}".format(passed_type)
+        return "Expected <class 'OutputStream'>, got {}".format(passed_type)
 
     def __str__(self):
         return self.message
