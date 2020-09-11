@@ -1,7 +1,9 @@
 """Handle formatting related to colors."""
 
 from colorama import init, Fore
+
 from re import findall
+from typing import Dict
 
 
 class ColorFormatter(object):
@@ -32,6 +34,14 @@ class ColorFormatter(object):
             'n': Fore.BLACK
         }
         self._default = Fore.RESET
+
+    @property
+    def color_mapping(self) -> Dict:
+        return self._color_mapping
+
+    @property
+    def default(self) -> str:
+        return self._default
 
     def _get_color_replacement(self, special_str):
         """Get the colored replacement of the passed
