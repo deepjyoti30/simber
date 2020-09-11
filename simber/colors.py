@@ -21,13 +21,17 @@ class ColorFormatter(object):
     """
     def __init__(self):
         init()
-        self.color_mapping = {
+        self._color_mapping = {
             'g': Fore.GREEN,
             'r': Fore.RED,
             'y': Fore.YELLOW,
             'b': Fore.BLUE,
+            'm': Fore.MAGENTA,
+            'c': Fore.CYAN,
+            'w': Fore.WHITE,
+            'n': Fore.BLACK
         }
-        self.default = Fore.RESET
+        self._default = Fore.RESET
 
     def _get_color_replacement(self, special_str):
         """Get the colored replacement of the passed
@@ -44,11 +48,11 @@ class ColorFormatter(object):
         postfix = special_str[:-1]  # This will always be % tho
         color = prefix[1]
 
-        replaced_color = self.color_mapping.get(color, self.default)
+        replaced_color = self._color_mapping.get(color, self._default)
 
         # Do the substitution now
         special_str = special_str.replace(prefix, replaced_color)
-        special_str = special_str.replace(postfix, self.default)
+        special_str = special_str.replace(postfix, self._default)
 
         return special_str
 
