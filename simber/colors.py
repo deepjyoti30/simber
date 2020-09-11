@@ -10,12 +10,22 @@ class ColorFormatter(object):
     The colors will be decided based on the level
     passed and accordingly replaced in the string
     and returned.
+
+    Following is the color mapping based on the levels
+
+    DEBUG:          Blue
+    INFO:           Green
+    WARNING:        Yellow
+    ERROR:          Red
+    CRITICAL:       Red
     """
     def __init__(self):
         init()
         self.color_mapping = {
             'g': Fore.GREEN,
-            'r': Fore.RED
+            'r': Fore.RED,
+            'y': Fore.YELLOW,
+            'b': Fore.BLUE,
         }
         self.default = Fore.RESET
 
