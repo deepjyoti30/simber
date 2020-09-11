@@ -7,7 +7,9 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 
-req_pkgs = []
+req_pkgs = [
+    'colorama'
+]
 
 
 if __name__ == '__main__':
