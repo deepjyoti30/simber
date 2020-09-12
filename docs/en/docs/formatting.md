@@ -86,3 +86,11 @@ Above will output the following
 ```console
 [INFO] [Test] [test.py] [4] Just a test statement
 ```
+
+## Advanced
+
+**Simber** formatter module has a `Formatter` class that exposes a static method `sub`.
+
+This method is used by the logger in order to format the code. The code of the method can be found [here](https://github.com/deepjyoti30/simber/blob/89b058de6b9819c9e8110292c830aaaeef0cc074/simber/formatter.py#L48)
+
+If you want to override this method, a class can be made by inheriting the `Formatter` class and defining the `sub` method according to your wish, however, it is important to keep it a static method and preserving the paramaters that it accepts.

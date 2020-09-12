@@ -23,6 +23,7 @@ markdown_extensions:
 nav:
   - Simber: index.md
   - architecture.md
+  - logger.md
   - formatting.md
   - colors.md
   - streams.md
