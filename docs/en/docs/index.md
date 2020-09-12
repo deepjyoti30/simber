@@ -38,3 +38,29 @@ cd simber && python setup.py install
 ```
 
 >NOTE: In the above command, you might need to pass `sudo` in order for it to install properly.
+
+## Get Started
+
+### Using it right away
+
+**Simber** can be used right away after installing with a few imports.
+
+Following is a sample code that uses **Simber** and prints some useful statements.
+
+```Python
+from simber import Logger
+
+# Create a new instance
+logger = Logger("test")
+
+# Print an info statement
+logger.info("Just printing an info message from the test logger")
+
+# Print a debug statement.
+logger.debug("Just a debug message")
+
+# Above message is not printed because the min level set is INFO
+
+# Print a warning message
+logger.warning("A warning message from the test logger")
+```

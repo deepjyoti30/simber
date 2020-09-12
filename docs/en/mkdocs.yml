@@ -8,3 +8,8 @@ theme:
 repo_name: deepjyoti30/simber
 repo_url: https://github.com/deepjyoti30/simber
 edit_uri: ''
+markdown_extensions:
+  - codehilite
+  - markdown.extensions.codehilite:
+      guess_lang: false
+  - extra
