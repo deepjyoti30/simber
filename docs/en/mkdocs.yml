@@ -7,8 +7,11 @@ theme:
     primary: red
     accent: green
   icon:
-    repo: fontawesome/brands/github-alt
+    repo: fontawesome/brands/github
   language: en
+  font:
+    text: Rubik
+    code: Fira Code
 repo_name: deepjyoti30/simber
 repo_url: https://github.com/deepjyoti30/simber
 edit_uri: ''
