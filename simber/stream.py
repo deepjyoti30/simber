@@ -58,7 +58,7 @@ class OutputStream(object):
         If the passed stream is not a valid one, raise an exception,
         else, just return it.
         """
-        if isinstance(passed_stream, TextIOWrapper):
+        if not isinstance(passed_stream, TextIOWrapper):
             raise InvalidStream(type(passed_stream))
 
         return passed_stream
