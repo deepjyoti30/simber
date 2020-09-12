@@ -5,6 +5,9 @@ from colorama import init, Fore
 from re import findall
 from typing import Dict
 
+from simber.configurations import Default
+from simber.exceptions import InvalidLevel
+
 
 class ColorFormatter(object):
     """Format colors to the passed string.
@@ -43,7 +46,15 @@ class ColorFormatter(object):
     def default(self) -> str:
         return self._default
 
-    def _get_color_replacement(self, special_str):
+    def _determine_color_from_level(self, level):
+        """Determine the color to be used based on the level
+        of the logger"""
+        if level is None and level not in Default.level_number:
+            raise InvalidLevel(level)
+
+        return Default().color_level_map.get(level, None)
+
+    def _get_color_replacement(self, special_str, level):
         """Get the colored replacement of the passed
         special str.
 
@@ -58,6 +69,11 @@ class ColorFormatter(object):
         postfix = special_str[-1]  # This will always be % tho
         color = prefix[1]
 
+        # If color is to be determined automatically
+        if color.lower() == "a":
+            # TODO: Add a check to raise exception if level is None
+            color = self._determine_color_from_level(level)
+
         replaced_color = self._color_mapping.get(color, self._default)
 
         # Do the substitution now
@@ -66,7 +82,7 @@ class ColorFormatter(object):
 
         return special_str
 
-    def _replace_with_colors(self, str_passed):
+    def _replace_with_colors(self, str_passed, level):
         """Find the special characters in the string
         and replace them with the colors as passed by the
         user.
@@ -76,12 +92,12 @@ class ColorFormatter(object):
         for occurence in occurences:
             str_passed = str_passed.replace(occurence,
                                             self._get_color_replacement(
-                                                occurence))
+                                                occurence, level))
 
         return str_passed
 
     @staticmethod
-    def format_colors(str_passed):
+    def format_colors(str_passed, level: str = None):
         """Format the str_passed with the colors as asked by
         the user and return a formatted string accordingly.
         """
