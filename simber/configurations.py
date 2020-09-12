@@ -28,6 +28,13 @@ class Default(object):
             "ERROR": 3,
             "CRITICAL": 4,
         }
+        self._color_level_map = {
+            "DEBUG": "b",
+            "INFO": "g",
+            "WARNING": "y",
+            "ERROR": "r",
+            "CRITICAL": "r"
+        }
 
     @property
     def console_format(self) -> str:
@@ -49,6 +56,10 @@ class Default(object):
     def valid_stdout_names(self) -> List:
         return self._valid_stdout_names
 
+    @property
+    def color_level_map(self) -> Dict:
+        return self._color_level_map
+
     def __repr__(self) -> str:
         """Return a string showing all the attributes
         that self contains"""
@@ -57,5 +68,6 @@ class Default(object):
             'file_format': self.file_format,
             'level_number': self.level_number,
             'log_file_name': self.log_file_name,
-            'valid_stdout_names': self.valid_stdout_names
+            'valid_stdout_names': self.valid_stdout_names,
+            'color_level_map': self.color_level_map
         })
