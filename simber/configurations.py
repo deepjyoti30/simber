@@ -17,7 +17,7 @@ class Default(object):
     the same without an underscore.
     """
     def __init__(self):
-        self._console_format = "[{levelname}] [{logger}]"
+        self._console_format = "%a[{levelname}]% [{logger}]"
         self._file_format = "[{levelname}] [{time}] [{filename}]"
         self._log_file_name = "log"
         self._valid_stdout_names = ['<stdout>', '<stderr>']

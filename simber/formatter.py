@@ -72,5 +72,6 @@ class Formatter(object):
         )
 
         # Pass it through the color formatter
-        unformatted_str = ColorFormatter.format_colors(unformatted_str, level)
+        unformatted_str = ColorFormatter.format_colors(unformatted_str,
+                                                       level_info["levelname"])
         return unformatted_str

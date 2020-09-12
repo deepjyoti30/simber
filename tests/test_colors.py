@@ -19,7 +19,7 @@ def test__replace_with_colors():
 
     color_formatter = ColorFormatter()
 
-    assert color_formatter._replace_with_colors(s) == output, "Should be `Green`"
+    assert color_formatter._replace_with_colors(s, None) == output, "Should be `Green`"
 
 
 def test__get_color_replacement():
@@ -28,6 +28,6 @@ def test__get_color_replacement():
     output = Fore.RED + "nana" + Fore.RESET
 
     color_formatter = ColorFormatter()
-    output_returned = color_formatter._get_color_replacement(s)
+    output_returned = color_formatter._get_color_replacement(s, None)
 
     assert output_returned == output, "Should be {}, got {}".format(output, output_returned)
