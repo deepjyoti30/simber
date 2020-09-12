@@ -9,6 +9,8 @@ theme:
   icon:
     repo: fontawesome/brands/github
   language: en
+  logo: assets/simber_white.png
+  favicon: assets/simber_icon.png
   font:
     text: Rubik
     code: Fira Code

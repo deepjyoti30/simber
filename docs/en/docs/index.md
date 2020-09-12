@@ -1,5 +1,11 @@
 # Simber
 
+<div align="center">
+<img src="/assets/simber.png">
+<br>
+<h3><i>Simple, minimal and powerful logger for Python</i></h3>
+</div>
+
 ## Requirements
 
 Simber tries to be a **minimal** logging library with a lot of functionality. Most of the requirements of Simber are internal except one.
