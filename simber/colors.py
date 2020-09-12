@@ -78,3 +78,11 @@ class ColorFormatter(object):
                                self._get_color_replacement(occurence))
 
         return str_passed
+
+    @staticmethod
+    def format_colors(str_passed):
+        """Format the str_passed with the colors as asked by
+        the user and return a formatted string accordingly.
+        """
+        color_formatter = ColorFormatter()
+        return color_formatter._replace_with_colors(str_passed)
