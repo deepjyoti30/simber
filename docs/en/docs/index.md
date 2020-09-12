@@ -2,16 +2,10 @@
 
 ## Requirements
 
-**Simber does not have any external dependencies**
+Simber tries to be a **minimal** logging library with a lot of functionality. Most of the requirements of Simber are internal except one.
 
-Simber runs just out of the box without any external dependencies. Following are the internal dependencies that it relies on, but these dependencies are installed by default if you have Python installed.
-
-- pathlib 
-- os
-- sys
-- io
-
->NOTE: Simber works on Python 3.x only.
+Simber leverages [colorama](https://github.com/tartley/colorama) in order to show colors in the terminal
+and keep it working across platforms.
 
 ## Installation
 
