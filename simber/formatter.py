@@ -5,6 +5,7 @@ the format of the strings that are printed.
 from datetime import datetime
 
 from simber.configurations import Default
+from simber.colors import ColorFormatter
 
 
 class Formatter(object):
@@ -60,7 +61,7 @@ class Formatter(object):
         caller_info = formatter._get_caller_details(frame)
         level_info = formatter._get_level(level)
 
-        return unformatted_str.format(
+        unformatted_str = unformatted_str.format(
             time=current_time,
             filename=caller_info['filename'],
             funcname=caller_info['name'],
@@ -69,3 +70,7 @@ class Formatter(object):
             levelno=level_info['levelno'],
             logger=name
         )
+
+        # Pass it through the color formatter
+        unformatted_str = ColorFormatter.format_colors(unformatted_str, level)
+        return unformatted_str
