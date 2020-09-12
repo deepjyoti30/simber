@@ -2,6 +2,10 @@ site_name: Simber
 site_description: A simple, minimal and powerful logger for Python
 theme:
   name: material
+  palette:
+    scheme: preference
+    primary: red
+    accent: green
   icon:
     repo: fontawesome/brands/github-alt
   language: en
