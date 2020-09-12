@@ -49,7 +49,7 @@ class ColorFormatter(object):
     def _determine_color_from_level(self, level):
         """Determine the color to be used based on the level
         of the logger"""
-        if level is None and level not in Default.level_number:
+        if level is None or level not in Default().level_number:
             raise InvalidLevel(level)
 
         return Default().color_level_map.get(level, None)
@@ -69,9 +69,8 @@ class ColorFormatter(object):
         postfix = special_str[-1]  # This will always be % tho
         color = prefix[1]
 
-        # If color is to be determined automatically
-        if color.lower() == "a":
-            # TODO: Add a check to raise exception if level is None
+        if color == "a":
+            # TODO: Check if level is None
             color = self._determine_color_from_level(level)
 
         replaced_color = self._color_mapping.get(color, self._default)
@@ -102,4 +101,4 @@ class ColorFormatter(object):
         the user and return a formatted string accordingly.
         """
         color_formatter = ColorFormatter()
-        return color_formatter._replace_with_colors(str_passed)
+        return color_formatter._replace_with_colors(str_passed, level)
