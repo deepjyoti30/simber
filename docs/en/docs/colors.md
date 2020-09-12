@@ -77,3 +77,23 @@ The color is determined as following, based on the level that the message is bei
 | Warning | Yellow |
 | Error | Red |
 | Critical | Red |
+
+## Examples
+
+Let's say we want to make the logger automatically detect the color for the level but for the time, we 
+want to keep the color red for all the prints.
+That can be done in the following way.
+
+```python
+from simber import Logger
+
+custom_format = "%a[{levelname}]% %r[{time}]%"
+logger = Logger("test", format=custom_format)
+
+logger.info("Just a test message")
+logger.warning("A warning test message")
+```
+
+This will show the following output
+
+<img src="/assets/logger_color_2.jpg">
