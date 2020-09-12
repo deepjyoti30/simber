@@ -55,7 +55,7 @@ class ColorFormatter(object):
         ending `%` with proper reset code.
         """
         prefix = special_str[:2]
-        postfix = special_str[:-1]  # This will always be % tho
+        postfix = special_str[-1]  # This will always be % tho
         color = prefix[1]
 
         replaced_color = self._color_mapping.get(color, self._default)
@@ -74,8 +74,9 @@ class ColorFormatter(object):
         occurences = findall(r'%.*?%', str_passed)
 
         for occurence in occurences:
-            str_passed.replace(occurence,
-                               self._get_color_replacement(occurence))
+            str_passed = str_passed.replace(occurence,
+                                            self._get_color_replacement(
+                                                occurence))
 
         return str_passed
 
