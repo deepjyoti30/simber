@@ -31,6 +31,7 @@ Supported keywords are:
 | Level Name | levelname | Level at which the logger is printing this message |
 | Level Number | levelno | Level number at which the logger is printing this message |
 | Logger Name | logger | Name of the logger that is printing this message |
+| Message | message | Message passed by the user |
 
 ## Passing custom formats
 
