@@ -68,8 +68,7 @@ class OutputStream(object):
         Make the format of the string that is to be written.
         """
         _format = Formatter.sub(self._format,
-                                level, name, frame)
-        _format += " {}".format(message)
+                                level, name, frame, message)
 
         return _format + '\n'
 

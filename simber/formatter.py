@@ -44,8 +44,18 @@ class Formatter(object):
                           if value == level_no][0]
         }
 
+    def _add_message_if_not_present(self, unformatted_str):
+        """Add the message keyword to the string if it is not already
+        present.
+
+        The message string will always be appended to the string."""
+        if '{message}' not in unformatted_str:
+            unformatted_str += " {message}"
+
+        return unformatted_str
+
     @staticmethod
-    def sub(unformatted_str, level, name, frame):
+    def sub(unformatted_str, level, name, frame, message):
         """Format the passed strings with the paramaters
         as possible.
 
@@ -61,6 +71,10 @@ class Formatter(object):
         caller_info = formatter._get_caller_details(frame)
         level_info = formatter._get_level(level)
 
+        # Add message if not already present
+        unformatted_str = formatter._add_message_if_not_present(
+                                        unformatted_str)
+
         unformatted_str = unformatted_str.format(
             time=current_time,
             filename=caller_info['filename'],
@@ -68,7 +82,8 @@ class Formatter(object):
             lineno=caller_info['line_no'],
             levelname=level_info['levelname'],
             levelno=level_info['levelno'],
-            logger=name
+            logger=name,
+            message=message
         )
 
         # Pass it through the color formatter
