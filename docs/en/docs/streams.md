@@ -48,7 +48,7 @@ This default stream is `stdout` and is of type `TextIOWrapper`.
 
 This is extracted using the `sys` module.
 
-Alternately, the logger will also initialize a file stream and add it to the stream set if the [log_path](http://localhost:8000/logger/#logger-class) param is passed and valid.
+Additionally, the logger will also initialize a file stream and add it to the stream set if the [log_path](http://localhost:8000/logger/#logger-class) param is passed and valid.
 
 >NOTE: The file stream will be initialized even if `disable_file` is passed as True but it will be disabled while init. It can be enabled back by using the logger update methods.
 
