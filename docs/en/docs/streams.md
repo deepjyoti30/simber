@@ -54,4 +54,41 @@ Additionally, the logger will also initialize a file stream and add it to the st
 
 ## Adding custom streams
 
+**Simber** allows you to add as many unique streams as you want and with call to any of the instances running, all the streams will write if they are not explicitly disabled.
+
+In order to add a stream to the logger instance, the [add_stream](http://localhost:8000/logger/#utility-methods) method can be used.
+
+This method takes an `OutputStream` object. If any other type is passed, it will raise an `InvalidOutputStream` exception.
+
+The following code creates a new stream that writes to the file `nana.log` in the current directory.
+
+```python
+# Open the file stream
+file_stream = open("nana.log", "a")  # Open in append mode
+
+from simber.stream import OutputStream
+
+# Create an Output Stream instance
+stream = OutputStream(file_stream)
+```
+
+Once the `OutputStream` instance is ready, we can add it to the list of streams.
+
+```python
+from simber import Logger
+
+# Create a logger instance
+logger = Logger("main")
+
+# Add the stream to the logger instance
+logger.add_stream(stream)
+
+logger.info("Just a test info log")  # This will log to console and `nana.log`
+```
+
+Now you can check the file `nana.log` and see that the test log was appended to it.
+
+>NOTE: While creating custom file streams, make sure that the file exists before writing, else you won't
+be able to open it with `open()`.
+
 ## Disabling writing to files
