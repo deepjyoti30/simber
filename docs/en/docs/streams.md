@@ -40,6 +40,18 @@ Source of the `write()` method can be checked in the [stream](https://github.com
 
 ## Default Stream
 
+Simber adds a default stream to the stream set when a new instance is initialized.
+
+>NOTE: Since the streams are shared among all the instances, so only unique streams are contained in the stream set. This means, even if the `Logger` class is initialized multiple times, it will have just one `stdout` stream.
+
+This default stream is `stdout` and is of type `TextIOWrapper`.
+
+This is extracted using the `sys` module.
+
+Alternately, the logger will also initialize a file stream and add it to the stream set if the [log_path](http://localhost:8000/logger/#logger-class) param is passed and valid.
+
+>NOTE: The file stream will be initialized even if `disable_file` is passed as True but it will be disabled while init. It can be enabled back by using the logger update methods.
+
 ## Adding custom streams
 
 ## Disabling writing to files
