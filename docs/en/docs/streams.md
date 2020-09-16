@@ -92,3 +92,52 @@ Now you can check the file `nana.log` and see that the test log was appended to 
 be able to open it with `open()`.
 
 ## Disabling writing to files
+
+### Disable all file streams using Logger
+
+**Simber** allows the user to disable writing to all the file streams present in the set of streams. The file streams are filtered out by using the `stream_name` attribute of the `TextIOWrapper` class.
+
+Writing to files can be disabled in the following way throught the logger.
+
+```python
+from simber import Logger
+
+logger = Logger("main")
+
+# Disable writing to files
+logger.update_disable_file(True)
+
+logger.info("Test message that will log to only non file streams")
+```
+
+Above is usefule in case the app is being debugged and you don't want to fill up your log files with the same content over and over again.
+
+### Disable while creating the OutputStream
+
+The stream can also be disable while creating it.
+
+As mentioned above, the `OutputStream` class accepts a `disabled` parameter.
+
+So the stream can be disabled while the instance is created
+
+```python
+from simber.stream import OutputStream
+from simber import Logger
+
+stream = OutputStream(open("nana.log", "a"), disabled=True)
+
+# Add the stream to logger and try to write
+logger = Logger("main")
+logger.add_stream(stream)
+
+logger.info("Test log")  # Will not be written to the `nana.log` file
+```
+
+It can also be enabled/disabled further by directly updating the attribute
+
+```python
+print("Stream disabled: {}".format(stream.disabled))
+
+# Enable the stream
+stream.disabled = False
+```
