@@ -38,7 +38,7 @@ For example, if a string is passed as **`%ggreen colored string`** it will retur
 
 ## Color names
 
-The single character map of the colors to the proper color is listen in the following table
+The single character map of the colors to the proper color is listed in the following table
 
 | Color | character |
 | ----- | --------- |

@@ -77,7 +77,7 @@ from simber import Logger
 custom_format = "[{levelname}] [{logger}] [{filename}] [{lineno}]"
 
 # Now create an instance and pass the format
-logger = Logger("Test", format=custome_format)
+logger = Logger("Test", format=custom_format)
 
 logger.info("Just a test statement")
 ```
