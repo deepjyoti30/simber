@@ -38,3 +38,35 @@ This is why, as seen in the image above, the final instance of the Logger will l
 So, let's say, you call a log method to log a `DEBUG` message, what actually happens is a write request is sent to all the available streams and these streams accordingly write.
 
 ### Formatter
+
+*Formatter* is what handles the formatting of the output. As **Simber** allows the user to have the flexibility to specify format for all the different instances, it is necessary to have something that will dynamically change those passed format to output'able strings. This is done by the formatter.
+
+Let's say the user provided the following format for any said instance
+
+```"{levelname} {message}"```
+
+Now, the above string has two special keywords that the user assumes the Logger will take care of. Thus the *formatter* will come in action here. We pass the above string to the formatter and we get the following output.
+
+>NOTE: Assuming the logger is running in `INFO` and the message passed was `Just a test`
+
+```console
+INFO Just a test
+```
+
+### Color Formatter
+
+Just like the *formatter*, the *Color Formatter* takes care of formatting the colors. Since **Simber** gives the user the flexibility to specify colors as well as automatically detect colors based on Level, this is necessary.
+
+Let's say we have the following string as the format for any logger instance
+
+```"%gJust a static message%"```
+
+The above format should output the message in the color green. Check the [color docs](/colors) for referrence.
+
+Thus the *Color Formatter* comes in action here and dynamically changes the color just before output. So the above format will output the following string.
+
+<img src="/assets/color_arch.jpg">
+
+## Conclusion
+
+All of the above modules together make up Simber which is aimed at giving the user complete control of the Logger while being useful and powerful.
