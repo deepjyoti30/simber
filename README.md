@@ -9,4 +9,4 @@ Simber was merely built because of some restrictions that the Python's default l
 
 ## More
 
-[[Installation](https://simber.deepjyoti30.dev/#installation)] [[Get Started](https://simber.deepjyoti30.dev/#get-started)] [[Docs](https://simber.deepjyoti30.dev/)]
+### \[[Installation](https://simber.deepjyoti30.dev/#installation)] \[[Get Started](https://simber.deepjyoti30.dev/#get-started)] \[[Docs](https://simber.deepjyoti30.dev/)]
