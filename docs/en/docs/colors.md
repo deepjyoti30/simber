@@ -1,4 +1,3 @@
-
 # Colors
 
 **Simber** allows highlighting the output with colors.
