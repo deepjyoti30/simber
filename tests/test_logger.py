@@ -8,7 +8,7 @@ def test__check_format():
     logger = Logger("test")
 
     # Check the default
-    assert logger._console_format == "[{levelname}] [{logger}]", "Should be [{levelname}] [{logger}]"
+    assert logger._console_format == '%a[{levelname}]% [{logger}]', "Should be %a[{levelname}]% [{logger}]"
     assert logger._file_format == "[{levelname}] [{time}] [{filename}]", "Should be [{levelname}] [{time}] [{filename}]"
 
     # Check when just format is passed
@@ -21,11 +21,6 @@ def test__check_format():
     assert logger._console_format == "format_nana", "Should be `format_nana`"
     assert logger._file_format == "file_format_nana", "Should be `file_format_nana`"
 
-    # Check when only file_format is passed
-    logger = Logger("test", file_format="nana")
-    assert logger._console_format == "[{levelname}] [{logger}]", "Should be [{levelname}] [{logger}]"
-    assert logger._file_format == "nana", "Should be `nana`"
-
 
 def test_update_format():
     """Test the update_format method"""
@@ -33,8 +28,7 @@ def test_update_format():
     logger2 = Logger("test2", format="new_nana")
 
     logger2.update_format("second_nana")
-    assert logger1._console_format == "second_nana", "Should be second_nana"
-    assert logger2._console_format == "second_nana", "Should be second_nana"
+    assert list(logger2._streams)[0].format == "second_nana", "Should be second_nana"
 
 
 def test_update_disable_file():
@@ -55,5 +49,4 @@ def test_update_level():
 
     logger2.update_level("DEBUG")
 
-    assert logger1.level == logger1._level_number["DEBUG"], "Update level failed"
-    assert logger2.level == logger2._level_number["DEBUG"], "Update level failed"
+    assert list(logger1._streams)[0].level == logger1._level_number["DEBUG"], "Update level failed"
