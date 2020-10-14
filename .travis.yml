@@ -1,0 +1,5 @@
+langauge: python
+python:
+  - "3.2"
+install: pip install -e .
+script: pytest
