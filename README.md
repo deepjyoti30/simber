@@ -20,4 +20,4 @@
 
 Simber was merely built because of some restrictions that the Python's default logging library has. This library is aimed as a simple, minimal yet powerful logging library for all Python apps. This logging library aims to take away all the disadvantages of using the default logging library and at the same time be feature filled so that the end user feels powerful using it.
 
-### \[[Installation](https://simber.deepjyoti30.dev/#installation)] \[[Get Started](https://simber.deepjyoti30.dev/#get-started)] \[[Docs](https://simber.deepjyoti30.dev/)]
+### \[[Installation](https://simber.deepjyoti30.dev/#installation)] \[[Get Started](https://simber.deepjyoti30.dev/#get-started)] \[[Docs](https://simber.deepjyoti30.dev/)] \[[Contribute](.github/CONTRIBUTING.md)]
