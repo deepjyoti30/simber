@@ -233,6 +233,19 @@ class Logger(object):
         for stream in self._streams:
             stream.format = format
 
+    def update_format_console(self, format):
+        """Update the format for all the non file instances
+
+        This is useful if an app requires different formats
+        for file and console and both are updated throug
+        one instance.
+        """
+        valid_names = Default().valid_stdout_names
+
+        for stream in self._streams:
+            if stream.stream_name not in valid_names:
+                stream.format = format
+
     def add_stream(self, stream_to_be_added: OutputStream):
         """Add the passed stream to the _streams class so
         that it can be used to write to that as well.

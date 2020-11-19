@@ -117,6 +117,7 @@ The methods that can be used to update other instances
 - `update_level(level)`               - Update the `level` for all instances
 - `update_disable_file(disable_file)` - Update the `disable_file` attribute for all instances
 - `update_format(format)`             - Update the `format` for all instances
+- `update_format_console(format)`     - Update the console `format` for all the instances
 
 ### Utility methods
 
