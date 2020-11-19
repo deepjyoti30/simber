@@ -78,7 +78,7 @@ class Logger(object):
 
         # Update all instances, if asked to
         if kwargs.get("update_all", False):
-            self.update_format(self._console_format)
+            self.update_format(self._console_format, self._file_format)
             self.update_disable_file(self._disable_file)
             self.update_level(self._passed_level)
 
@@ -227,11 +227,22 @@ class Logger(object):
         self._disable_file = disable_file
         self._disable_file_streams()
 
-    def update_format(self, format):
+    def update_format(self, format, file_format=None):
         """Update the format of all the instances.
+
+        We need to update the instances seperately based
+        on the type of the stream.
         """
+        valid_stdout_names = Default().valid_stdout_names
+        file_format = format if file_format is None else file_format
+
         for stream in self._streams:
-            stream.format = format
+            if stream.stream_name in valid_stdout_names:
+                # Probably a console format
+                stream.format = format
+            else:
+                # Probably a file stream
+                stream.format = file_format
 
     def update_format_console(self, format):
         """Update the format for all the non file instances
