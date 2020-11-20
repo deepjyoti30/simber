@@ -266,6 +266,13 @@ class Logger(object):
 
         self._streams.add(stream_to_be_added)
 
+    def get_log_file(self):
+        """Get the log file that is being written to.
+
+        This is just to support backward functionality for ytmdl
+        """
+        return self._log_file
+
     def list_available_levels(self):
         """
         List all the available logger levels.

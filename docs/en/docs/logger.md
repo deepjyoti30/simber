@@ -126,3 +126,4 @@ Other useful methods
 - `add_stream(stream_to_be_added)` - Add streams to the stream container. More in the [streams](/streams/) page
 - `list_available_levels()`        - List all available levels to stdout
 - `hold()`                         - Hold the screen for user input. Useful if the logger needs to be haulted afer showing a certain output.
+- `get_log_file()`                 - Get the current log file that is being written to.
