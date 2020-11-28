@@ -269,9 +269,15 @@ class Logger(object):
     def get_log_file(self):
         """Get the log file that is being written to.
 
-        This is just to support backward functionality for ytmdl
+        This is just to support backward functionality for ytmdl.
+
+        We cannot just return the log file since a lot of instances
+        would be sharing one file and the file will be updated
+        from the final master instance. We will have to get the file
+        through the available streams.
         """
-        return self._log_file
+        return [stream for stream in self._streams
+                if stream.stream_name not in Default().valid_stdout_names]
 
     def list_available_levels(self):
         """
