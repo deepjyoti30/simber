@@ -10,10 +10,14 @@ Copyright (c) 2020 Deepjyoti Barman <deep.barman30@gmail.com>
 from pathlib import Path
 import os
 from sys import _getframe, stdout
+from colorama import init
 
 from simber.configurations import Default
 from simber.stream import OutputStream
 from simber.exceptions import InvalidLevel, InvalidOutputStream
+
+# Init colorama for windows
+init()
 
 
 class Logger(object):

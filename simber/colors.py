@@ -1,6 +1,6 @@
 """Handle formatting related to colors."""
 
-from colorama import init, Fore
+from colorama import Fore
 
 from re import findall
 from typing import Dict
@@ -25,7 +25,6 @@ class ColorFormatter(object):
     CRITICAL:       Red
     """
     def __init__(self):
-        init()
         self._color_mapping = {
             'g': Fore.GREEN,
             'r': Fore.RED,
