@@ -118,7 +118,14 @@ class OutputStream(object):
         if calling_level < self._level or self._disabled:
             return False
 
-        self.stream.write(self._make_format(
+        _formatted_out = self._make_format(
             message, calling_level, frame, logger_name
-        ))
+        )
+
+        params = {"end": ""}
+        if self.stream.name not in Default().valid_stdout_names:
+            # Add the stream since it won't be stdout
+            params["file"] = self.stream
+
+        print(_formatted_out, **params)
         return True
