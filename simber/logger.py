@@ -216,13 +216,19 @@ class Logger(object):
     def update_level(self, level):
         """
         Update all the streams with the passed level.
+
+        This will not update the level of file outputs.
         """
         # First check if the passed level is present in the supported ones
         if level not in self._level_number:
             raise InvalidLevel(level)
 
+        valid_names = Default().valid_stdout_names
+
+        # Update the level for only stdout outputs
         for stream in self._streams:
-            stream.level = self._level_number[level]
+            if stream.stream_name in valid_names:
+                stream.level = self._level_number[level]
 
     def update_disable_file(self, disable_file):
         """

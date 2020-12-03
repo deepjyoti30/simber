@@ -101,8 +101,12 @@ class OutputStream(object):
         return self.stream.name
 
     def __eq__(self, value):
+        # If passed value is another object, we need to
+        # compare the names
         if isinstance(value, OutputStream):
             return self.stream_name == value.stream_name
+
+        # Else false
         return False
 
     def __hash__(self):
