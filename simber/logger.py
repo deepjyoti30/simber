@@ -351,10 +351,10 @@ class Logger(object):
         LEVEL_NUMBER = 3
         self._write(message, args, LEVEL_NUMBER)
 
-    def critical(self, message, *args):
+    def critical(self, message, *args, exit_code: int = -1):
         """
         Add the message if the level is critical or less.
         """
         LEVEL_NUMBER = 4
         self._write(message, args, LEVEL_NUMBER)
-        exit()
+        exit(exit_code)
