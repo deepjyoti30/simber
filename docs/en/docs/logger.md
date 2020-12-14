@@ -108,7 +108,7 @@ The methods to log are
 - `info(message, *args)`
 - `warning(message, *args)`
 - `error(message, *args)`
-- `critical(message, *args)`
+- `critical(message, *args, exit_code=-1)`
 
 ### Update methods
 
