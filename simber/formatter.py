@@ -55,7 +55,7 @@ class Formatter(object):
         return unformatted_str
 
     @staticmethod
-    def sub(unformatted_str, level, name, frame, message):
+    def sub(unformatted_str, level, name, frame, message, time_format):
         """Format the passed strings with the paramaters
         as possible.
 
@@ -67,7 +67,7 @@ class Formatter(object):
         :rtype: str
         """
         formatter = Formatter()
-        current_time = formatter._get_time()
+        current_time = formatter._get_time(strformat=time_format)
         caller_info = formatter._get_caller_details(frame)
         level_info = formatter._get_level(level)
 
