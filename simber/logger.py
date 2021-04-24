@@ -122,7 +122,8 @@ class Logger(object):
                 open(self._log_file, "a"),
                 self._passed_file_level,
                 self._file_format,
-                self._disable_file
+                self._disable_file,
+                time_format=self._time_format
             ))
 
     def _check_format(self, format_passed, file_format):
