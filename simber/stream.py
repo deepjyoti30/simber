@@ -24,13 +24,15 @@ class OutputStream(object):
         stream: TextIOWrapper,
         level: str = None,
         format: str = None,
-        disabled: bool = False
+        disabled: bool = False,
+        time_format: str = None
     ):
         self._passed_level = None
         self.stream = self._extract_stream(stream)
         self._level = self._extract_level(level)
         self._format = Default().file_format if format is None else format
         self._disabled = disabled
+        self._time_format = time_format
 
     def _extract_level(self, passed_level: str):
         """Extract the passed level.
