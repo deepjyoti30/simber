@@ -95,6 +95,7 @@ Following are the params accepted by the `Logger` class:
 | file_level | Minimum level that the logger will log in for files. Set to minimum level by default |
 | disable_file | Disable writing the logs to the files |
 | update_all | Update all the instances that are created before this instance with the passed `format`, `level` and value of `disable_file`. |
+| time_format | Format for the time to be printed. This should be a string as accepted by the [datetime's strftime](https://docs.python.org/3/library/datetime.html#datetime.date.strftime). |
 
 ## Methods
 

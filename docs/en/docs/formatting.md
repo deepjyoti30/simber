@@ -24,7 +24,7 @@ Supported keywords are:
 
 | Name | Keyword | Description |
 | ---- | ------- | ----------- |
-| Time | time    | Time as of printing the message. It will be of the form `%d/%m/%Y %H:%M:%S` |
+| Time | time    | Time as of printing the message. It will be of the form `%d/%m/%Y %H:%M:%S` by default and can be changed with the [time_format](https://simber.deepjyoti30.dev/logger/#logger-class) param of logger. |
 | Filename | filename | Name of the file that is printing this message |
 | Function Name | funcname | Name of the function that is printing this message |
 | Line Number | lineno | Line number of the current call in the file |
