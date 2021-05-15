@@ -20,8 +20,11 @@ class Formatter(object):
     def __init__(self):
         pass
 
-    def _get_time(self, strformat="%d/%m/%Y %H:%M:%S"):
+    def _get_time(self, strformat: str = "%d/%m/%Y %H:%M:%S"):
         """Get the time, based on the string passed."""
+        if type(strformat) != str:
+            raise TypeError(
+                f"strformat should be str, {type(strformat)} passed")
         return datetime.now().strftime(strformat)
 
     def _get_caller_details(self, last_to_last_frame):
@@ -67,6 +70,7 @@ class Formatter(object):
         :rtype: str
         """
         current_time = self._get_time(strformat=time_format)
+        # **({"strformat": time_format} if time_format is not None else {}))
         caller_info = self._get_caller_details(frame)
         level_info = self._get_level(level)
 
