@@ -16,6 +16,7 @@ class Formatter(object):
     special format options in order to give flexibilty
     to the users.
     """
+
     def __init__(self):
         pass
 
@@ -54,8 +55,7 @@ class Formatter(object):
 
         return unformatted_str
 
-    @staticmethod
-    def sub(unformatted_str, level, name, frame, message, time_format):
+    def sub(self, unformatted_str, level, name, frame, message, time_format):
         """Format the passed strings with the paramaters
         as possible.
 
@@ -66,14 +66,13 @@ class Formatter(object):
         :return: The formatted string
         :rtype: str
         """
-        formatter = Formatter()
-        current_time = formatter._get_time(strformat=time_format)
-        caller_info = formatter._get_caller_details(frame)
-        level_info = formatter._get_level(level)
+        current_time = self._get_time(strformat=time_format)
+        caller_info = self._get_caller_details(frame)
+        level_info = self._get_level(level)
 
         # Add message if not already present
-        unformatted_str = formatter._add_message_if_not_present(
-                                        unformatted_str)
+        unformatted_str = self._add_message_if_not_present(
+            unformatted_str)
 
         unformatted_str = unformatted_str.format(
             time=current_time,
@@ -87,6 +86,6 @@ class Formatter(object):
         )
 
         # Pass it through the color formatter
-        unformatted_str = ColorFormatter.format_colors(unformatted_str,
-                                                       level_info["levelname"])
+        unformatted_str = ColorFormatter().format_colors(unformatted_str,
+                                                         level_info["levelname"])
         return unformatted_str

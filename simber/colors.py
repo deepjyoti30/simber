@@ -24,6 +24,7 @@ class ColorFormatter(object):
     ERROR:          Red
     CRITICAL:       Red
     """
+
     def __init__(self):
         self._color_mapping = {
             'g': Fore.GREEN,
@@ -94,10 +95,8 @@ class ColorFormatter(object):
 
         return str_passed
 
-    @staticmethod
-    def format_colors(str_passed, level: str = None):
+    def format_colors(self, str_passed, level: str = None):
         """Format the str_passed with the colors as asked by
         the user and return a formatted string accordingly.
         """
-        color_formatter = ColorFormatter()
-        return color_formatter._replace_with_colors(str_passed, level)
+        return self._replace_with_colors(str_passed, level)
