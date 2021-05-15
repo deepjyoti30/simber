@@ -22,6 +22,7 @@ Following are the paramaters of the `OutputStream` class
 | `level` | The minimum level that the stream will log in | INFO |
 | `format` | The format of the output string | Default file format is considered |
 | `disabled` | If the stream is disabled from writing. If this is `True`, it will not write anything, until it is changed to `False` | `False` |
+| `time_format` | Time format to be passed to the formatter for the `time` value. | `%d/%m/%Y %H:%M:%S` |
 
 ### Attributes
 

@@ -57,6 +57,8 @@ class Logger(object):
                         self logger. If passed True, all the logger instances
                         previsouly init will be updated with the `format`,
                         `disable_file` and `level` attribute.
+    time_format:        Format for the time string. String to change the way
+                        the time string looks when {time} is printed.
     """
 
     _instances = []
@@ -75,6 +77,7 @@ class Logger(object):
         self._file_level = self._level_number[self._passed_file_level]
         self._disable_file = kwargs.get("disable_file", False)
         self._log_file = self._check_logfile(kwargs.get("log_path", None))
+        self._time_format = kwargs.get("time_format", None)
 
         self._check_format(kwargs.get("format", None),
                            kwargs.get("file_format", None))
@@ -99,8 +102,12 @@ class Logger(object):
         """
         # Initialize the default stdout stream
         self._streams.add(
-            OutputStream(stdout, self._passed_level, self._console_format)
-        )
+            OutputStream(
+                stdout,
+                self._passed_level,
+                self._console_format,
+                time_format=self._time_format
+            ))
 
         # If log_file is invalid, skip creating the file
         # stream.
@@ -115,7 +122,8 @@ class Logger(object):
                 open(self._log_file, "a"),
                 self._passed_file_level,
                 self._file_format,
-                self._disable_file
+                self._disable_file,
+                time_format=self._time_format
             ))
 
     def _check_format(self, format_passed, file_format):

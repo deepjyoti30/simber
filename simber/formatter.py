@@ -16,11 +16,15 @@ class Formatter(object):
     special format options in order to give flexibilty
     to the users.
     """
+
     def __init__(self):
         pass
 
-    def _get_time(self, strformat="%d/%m/%Y %H:%M:%S"):
+    def _get_time(self, strformat: str = "%d/%m/%Y %H:%M:%S"):
         """Get the time, based on the string passed."""
+        if type(strformat) != str:
+            raise TypeError(
+                f"strformat should be str, {type(strformat)} passed")
         return datetime.now().strftime(strformat)
 
     def _get_caller_details(self, last_to_last_frame):
@@ -54,8 +58,7 @@ class Formatter(object):
 
         return unformatted_str
 
-    @staticmethod
-    def sub(unformatted_str, level, name, frame, message):
+    def sub(self, unformatted_str, level, name, frame, message, time_format):
         """Format the passed strings with the paramaters
         as possible.
 
@@ -66,14 +69,14 @@ class Formatter(object):
         :return: The formatted string
         :rtype: str
         """
-        formatter = Formatter()
-        current_time = formatter._get_time()
-        caller_info = formatter._get_caller_details(frame)
-        level_info = formatter._get_level(level)
+        current_time = self._get_time(
+            **({"strformat": time_format} if time_format is not None else {}))
+        caller_info = self._get_caller_details(frame)
+        level_info = self._get_level(level)
 
         # Add message if not already present
-        unformatted_str = formatter._add_message_if_not_present(
-                                        unformatted_str)
+        unformatted_str = self._add_message_if_not_present(
+            unformatted_str)
 
         unformatted_str = unformatted_str.format(
             time=current_time,
@@ -87,6 +90,6 @@ class Formatter(object):
         )
 
         # Pass it through the color formatter
-        unformatted_str = ColorFormatter.format_colors(unformatted_str,
-                                                       level_info["levelname"])
+        unformatted_str = ColorFormatter().format_colors(unformatted_str,
+                                                         level_info["levelname"])
         return unformatted_str
