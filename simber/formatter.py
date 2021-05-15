@@ -69,8 +69,8 @@ class Formatter(object):
         :return: The formatted string
         :rtype: str
         """
-        current_time = self._get_time(strformat=time_format)
-        # **({"strformat": time_format} if time_format is not None else {}))
+        current_time = self._get_time(
+            **({"strformat": time_format} if time_format is not None else {}))
         caller_info = self._get_caller_details(frame)
         level_info = self._get_level(level)
 
