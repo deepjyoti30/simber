@@ -302,6 +302,25 @@ class Logger(object):
 
         self._streams.add(stream_to_be_added)
 
+    def remove_stream(self, stream_to_be_removed: OutputStream):
+        """
+        Remove the passed stream from the _streams set and
+        accordingly destroy it from memory by destroying the
+        stream with del.
+
+        This will also destroy the underlying streaml. If you want to
+        just disable the stream, use the streams disable functions.
+        """
+        if not isinstance(stream_to_be_removed, OutputStream):
+            raise InvalidOutputStream(type(stream_to_be_removed))
+
+        self._streams.remove(stream_to_be_removed)
+
+        # NOTE: It is important to remove the TextIOWrapper because
+        # it might be using a lot of memory even after the stream
+        # is destroyed.
+        del stream_to_be_removed.stream
+
     def get_log_file(self):
         """Get the log file that is being written to.
 
