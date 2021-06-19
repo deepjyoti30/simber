@@ -111,6 +111,10 @@ The methods to log are
 - `error(message, *args)`
 - `critical(message, *args, exit_code=-1)`
 
+### Properties
+
+- `streams`: Returns a list of [OutputStream](/streams/#properties) objects connected to the logger.
+
 ### Update methods
 
 The methods that can be used to update other instances
@@ -124,7 +128,8 @@ The methods that can be used to update other instances
 
 Other useful methods
 
-- `add_stream(stream_to_be_added)` - Add streams to the stream container. More in the [streams](/streams/) page
+- `add_stream(stream_to_be_added: OutputStream)` - Add streams to the stream container. More in the [streams](/streams/) page
+- `remove_stream(stream_to_be_removed: OutputStream)` - Remove stream from the streams container. This will also destroy the file stream. Use the `disable` param of OutputStream to disable instead of this.
 - `list_available_levels()`        - List all available levels to stdout
 - `hold()`                         - Hold the screen for user input. Useful if the logger needs to be haulted afer showing a certain output.
 - `get_log_file()`                 - Get the current log file that is being written to.

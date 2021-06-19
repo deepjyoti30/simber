@@ -1,6 +1,11 @@
 """Test the Logger module"""
 
+from os import remove
+from sys import stderr
+
 from simber.logger import Logger
+from simber.configurations import Default
+from simber.stream import OutputStream
 
 
 def test__check_format():
@@ -17,7 +22,8 @@ def test__check_format():
     assert logger._file_format == "nana", "Should be `nana`"
 
     # Check when both format and file_format passed
-    logger = Logger("test", format="format_nana", file_format="file_format_nana")
+    logger = Logger("test", format="format_nana",
+                    file_format="file_format_nana")
     assert logger._console_format == "format_nana", "Should be `format_nana`"
     assert logger._file_format == "file_format_nana", "Should be `file_format_nana`"
 
@@ -28,7 +34,8 @@ def test_update_format():
     logger2 = Logger("test2", format="new_nana")
 
     logger2.update_format("second_nana")
-    assert list(logger2._streams)[0].format == "second_nana", "Should be second_nana"
+    assert list(logger2._streams)[
+        0].format == "second_nana", "Should be second_nana"
 
 
 def test_update_disable_file():
@@ -42,11 +49,46 @@ def test_update_disable_file():
     assert logger2._disable_file, "Should be true"
 
 
-def test_update_level():
+def test_stdout_update_level():
     """Test the update_level method"""
     logger1 = Logger("test1", level="INFO")
     logger2 = Logger("test2", level="WARNING")
 
     logger2.update_level("DEBUG")
 
-    assert list(logger1._streams)[0].level == logger1._level_number["DEBUG"], "Update level failed"
+    # Check if all the stdout streams have the same level
+    streams = [
+        s.level for s in logger1.streams if s.stream_name
+        in Default().valid_stdout_names]
+
+    assert streams == ([0] * len(streams)), "Update level failed"
+
+
+def test_remove_stream():
+    """
+    Test the remove stream method of the logger.
+    """
+    file_path = "test.txt"
+    logger1 = Logger("test1", log_path=file_path)
+
+    # The first stream should be a file stream
+    file_stream = logger1.streams[0]
+    logger1.remove_stream(file_stream)
+
+    # Remove the test.txt file
+    remove(file_path)
+
+    assert len(logger1.streams) == 1, "Removing stream failed"
+
+
+def test_add_stream():
+    """
+    Test the add stream method of the logger.
+    """
+    logger1 = Logger("test1")
+
+    # Create an output stream
+    new_stream = OutputStream(stream=stderr)
+    logger1.add_stream(new_stream)
+
+    assert new_stream in logger1.streams, "Adding stream failed"
