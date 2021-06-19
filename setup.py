@@ -15,7 +15,7 @@ req_pkgs = [
 if __name__ == '__main__':
     setuptools.setup(
         name="simber",
-        version="0.2.2",
+        version="0.2.3",
         author="Deepjyoti Barman",
         author_email="deep.barma30@gmail.com",
         description="Simple, minimal, powerful logging library for Python",
