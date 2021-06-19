@@ -11,6 +11,7 @@ from pathlib import Path
 import os
 from sys import _getframe, stdout
 from colorama import init
+from typing import List
 
 from simber.configurations import Default
 from simber.stream import OutputStream
@@ -385,3 +386,11 @@ class Logger(object):
         LEVEL_NUMBER = 4
         self._write(message, args, LEVEL_NUMBER)
         exit(exit_code)
+
+    @property
+    def streams(self) -> List[OutputStream]:
+        """
+        Return all the streams attached to the
+        logger.
+        """
+        return list(self._streams)
