@@ -1,5 +1,7 @@
 """Test the Logger module"""
 
+from os import remove
+
 from simber.logger import Logger
 from simber.configurations import Default
 
@@ -58,3 +60,20 @@ def test_stdout_update_level():
         in Default().valid_stdout_names]
 
     assert streams == ([0] * len(streams)), "Update level failed"
+
+
+def test_remove_stream():
+    """
+    Test the remove stream method of the logger.
+    """
+    file_path = "test.txt"
+    logger1 = Logger("test1", log_path=file_path)
+
+    # The first stream should be a file stream
+    file_stream = logger1.streams[0]
+    logger1.remove_stream(file_stream)
+
+    # Remove the test.txt file
+    remove(file_path)
+
+    assert len(logger1.streams) == 1, "Removing stream failed"
