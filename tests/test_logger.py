@@ -1,9 +1,11 @@
 """Test the Logger module"""
 
 from os import remove
+from sys import stderr
 
 from simber.logger import Logger
 from simber.configurations import Default
+from simber.stream import OutputStream
 
 
 def test__check_format():
@@ -77,3 +79,16 @@ def test_remove_stream():
     remove(file_path)
 
     assert len(logger1.streams) == 1, "Removing stream failed"
+
+
+def test_add_stream():
+    """
+    Test the add stream method of the logger.
+    """
+    logger1 = Logger("test1")
+
+    # Create an output stream
+    new_stream = OutputStream(stream=stderr)
+    logger1.add_stream(new_stream)
+
+    assert new_stream in logger1.streams, "Adding stream failed"
