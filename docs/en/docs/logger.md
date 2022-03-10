@@ -8,13 +8,13 @@ It can be used right away by creating an instance of this class and using the wr
 
 **Simber** allows the user to log the messages in 5 different levels. Each level has a number associated to them that let's the Logger determine which level is higher. These are:
 
-| Number associated | Name | Description |
-| ----------------- | ---- | ----------- |
-| 0 | DEBUG | Level that is used for debugging, messages that are not supposed to be seen by the user. |
-| 1 | INFO | Level used to show information to the user. |
-| 2 | WARNING | Level used to show warning to the user. |
-| 3 | ERROR | Level to show errors to the user. Errors are considered not fatal. Some error has occured but the program can continue working |
-| 4 | CRITICAL | Level to show fatal errors to user. When message is printed through this level, the program exits execution just after printing the message. |
+| Number associated | Name     | Description                                                                                                                                  |
+| ----------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0                 | DEBUG    | Level that is used for debugging, messages that are not supposed to be seen by the user.                                                     |
+| 1                 | INFO     | Level used to show information to the user.                                                                                                  |
+| 2                 | WARNING  | Level used to show warning to the user.                                                                                                      |
+| 3                 | ERROR    | Level to show errors to the user. Errors are considered not fatal. Some error has occured but the program can continue working               |
+| 4                 | CRITICAL | Level to show fatal errors to user. When message is printed through this level, the program exits execution just after printing the message. |
 
 ## Minimum Level
 
@@ -24,7 +24,7 @@ For Eg:
 
 If the minimum level is set to `WARNING` which has the number `2` associated with it. This means any levels that have a number less than `2` associated with it will not print the message.
 
->NOTE: By default, the minimum level is set to `INFO` in **Simber**.
+> NOTE: By default, the minimum level is set to `INFO` in **Simber**.
 
 ## Using in packages
 
@@ -85,17 +85,17 @@ def __init__(self, name, **kwargs)
 
 Following are the params accepted by the `Logger` class:
 
-| param | Description |
-| ----- | ----------- |
-| name | Name of the current instance of the logger. This should be something that describes the module that the logger is being called from |
-| format | The format to be used by the logger for the messages. |
-| file_format | The format to be used to write to files. If it is not passed, `format` will be used here. |
-| log_path | File or directory where logs are supposed to be stored. If it is a directory, a new log file is created if not already present and accordingly written. If it is a file, the logs are written to this file. If not passed, this is skipped.|
-| level | Minimum level that the logger will log in. By default set to `INFO` |
-| file_level | Minimum level that the logger will log in for files. Set to minimum level by default |
-| disable_file | Disable writing the logs to the files |
-| update_all | Update all the instances that are created before this instance with the passed `format`, `level` and value of `disable_file`. |
-| time_format | Format for the time to be printed. This should be a string as accepted by the [datetime's strftime](https://docs.python.org/3/library/datetime.html#datetime.date.strftime). |
+| param        | Description                                                                                                                                                                                                                                 |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| name         | Name of the current instance of the logger. This should be something that describes the module that the logger is being called from                                                                                                         |
+| format       | The format to be used by the logger for the messages.                                                                                                                                                                                       |
+| file_format  | The format to be used to write to files. If it is not passed, `format` will be used here.                                                                                                                                                   |
+| log_path     | File or directory where logs are supposed to be stored. If it is a directory, a new log file is created if not already present and accordingly written. If it is a file, the logs are written to this file. If not passed, this is skipped. |
+| level        | Minimum level that the logger will log in. By default set to `INFO`                                                                                                                                                                         |
+| file_level   | Minimum level that the logger will log in for files. Set to minimum level by default                                                                                                                                                        |
+| disable_file | Disable writing the logs to the files                                                                                                                                                                                                       |
+| update_all   | Update all the instances that are created before this instance with the passed `format`, `level` and value of `disable_file`.                                                                                                               |
+| time_format  | Format for the time to be printed. This should be a string as accepted by the [datetime's strftime](https://docs.python.org/3/library/datetime.html#datetime.date.strftime).                                                                |
 
 ## Methods
 
@@ -114,15 +114,16 @@ The methods to log are
 ### Properties
 
 - `streams`: Returns a list of [OutputStream](/streams/#properties) objects connected to the logger.
+- `level_map`: Returns a dictionary with level names mapped to the level number.
 
 ### Update methods
 
 The methods that can be used to update other instances
 
-- `update_level(level)`               - Update the `level` for all instances
+- `update_level(level)` - Update the `level` for all instances
 - `update_disable_file(disable_file)` - Update the `disable_file` attribute for all instances
-- `update_format(format)`             - Update the `format` for all instances
-- `update_format_console(format)`     - Update the console `format` for all the instances
+- `update_format(format)` - Update the `format` for all instances
+- `update_format_console(format)` - Update the console `format` for all the instances
 
 ### Utility methods
 
@@ -130,6 +131,6 @@ Other useful methods
 
 - `add_stream(stream_to_be_added: OutputStream)` - Add streams to the stream container. More in the [streams](/streams/) page
 - `remove_stream(stream_to_be_removed: OutputStream)` - Remove stream from the streams container. This will also destroy the file stream. Use the `disable` param of OutputStream to disable instead of this.
-- `list_available_levels()`        - List all available levels to stdout
-- `hold()`                         - Hold the screen for user input. Useful if the logger needs to be haulted afer showing a certain output.
-- `get_log_file()`                 - Get the current log file that is being written to.
+- `list_available_levels()` - List all available levels to stdout
+- `hold()` - Hold the screen for user input. Useful if the logger needs to be haulted afer showing a certain output.
+- `get_log_file()` - Get the current log file that is being written to.

@@ -11,7 +11,7 @@ from pathlib import Path
 import os
 from sys import _getframe, stdout
 from colorama import init
-from typing import List
+from typing import List, Dict
 
 from simber.configurations import Default
 from simber.stream import OutputStream
@@ -386,6 +386,13 @@ class Logger(object):
         LEVEL_NUMBER = 4
         self._write(message, args, LEVEL_NUMBER)
         exit(exit_code)
+
+    @property
+    def level_map(self) -> Dict:
+        """
+        Expose the map of level name strings to the level numbers.
+        """
+        return self._level_number
 
     @property
     def streams(self) -> List[OutputStream]:
