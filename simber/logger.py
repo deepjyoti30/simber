@@ -120,7 +120,7 @@ class Logger(object):
         # because file can be enabled later.
         self._streams.add(
             OutputStream(
-                open(self._log_file, "a"),
+                open(self._log_file, "a", encoding="utf-8"),
                 self._passed_file_level,
                 self._file_format,
                 self._disable_file,
